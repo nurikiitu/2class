@@ -272,6 +272,34 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 .gbox input{width:100%;font:900 28px Nunito,sans-serif;text-align:center;letter-spacing:3px;text-transform:uppercase;padding:14px;border:4px solid #c5d4ee;border-radius:20px;outline:none}
 .gbtn{width:100%;margin-top:14px;font-size:24px;padding:16px;background:#43a047;color:#fff}.gerr{color:#e53935;font-weight:900;min-height:24px;margin-top:10px}
 @media(max-width:700px){.home-head{padding-top:62px}}
+
+.g2opts{max-width:1500px}.tile.g2o.word{font-size:clamp(28px,3vw,46px);height:auto;min-height:100px;padding:14px 30px}.tile.g2o.mid{font-size:clamp(40px,4vw,60px)}
+.tile.g2ok{background:#c8f7c5;box-shadow:0 8px 0 #2e7d32}
+.clockbox .clock{width:clamp(220px,30vh,340px);height:auto;filter:drop-shadow(0 8px 0 rgba(0,0,0,.2))}
+.tenpic{display:flex;gap:10px;align-items:flex-end;background:rgba(255,255,255,.9);padding:16px 22px;border-radius:24px;flex-wrap:wrap;justify-content:center;max-width:95vw}
+.stick{display:flex;flex-direction:column;gap:2px;padding:3px;background:#1565c0;border-radius:8px}.stick i{width:24px;height:16px;background:#64b5f6;border-radius:3px;display:block}
+.units{display:flex;flex-wrap:wrap;gap:4px;max-width:120px}.units i{width:24px;height:24px;background:#ef6c00;border-radius:5px;display:block}
+.bignum{font-size:1.6em;background:#fff;color:var(--ink);padding:0 24px;border-radius:20px;text-shadow:none}
+.groups{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;max-width:1400px}.grp{background:rgba(255,255,255,.9);border-radius:18px;padding:8px 12px;font-size:clamp(20px,2.4vw,34px);letter-spacing:2px}
+.qbox{display:inline-block;min-width:1.2em;padding:0 10px;border:4px dashed #fff;border-radius:14px;text-align:center}.qbox.filled{border-style:solid;background:#fff;color:var(--ink);text-shadow:none}
+.price{background:#fff;color:#e53935;border-radius:16px;padding:0 16px;text-shadow:none}
+.paybox{min-height:110px;min-width:min(700px,90vw);background:rgba(255,255,255,.25);border:5px dashed #fff;border-radius:24px;display:flex;flex-wrap:wrap;gap:8px;padding:10px;justify-content:center;align-items:center}
+.paysum{font-size:clamp(26px,3vw,40px);font-weight:900;color:#fff;background:rgba(0,0,0,.2);padding:4px 22px;border-radius:16px}.paysum.bad{background:#e53935}
+.coins{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.coin{width:clamp(80px,8vw,116px);height:clamp(80px,8vw,116px);border-radius:50%;font-size:clamp(28px,3vw,42px);font-weight:900;color:#4e342e;background:radial-gradient(circle at 35% 30%,#fff8d6,#f9c74f 55%,#c99a06);box-shadow:0 6px 0 #8d6e00,inset 0 0 0 5px rgba(255,255,255,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.coin small{font-size:.45em}.coin.c1,.coin.c2,.coin.c5{background:radial-gradient(circle at 35% 30%,#fff,#d7ccc8 55%,#a1887f);box-shadow:0 6px 0 #6d4c41}
+.coin.sm{width:64px;height:64px;font-size:24px;box-shadow:0 4px 0 #8d6e00}
+.probtxt{background:#fff;color:var(--ink);font-size:clamp(26px,2.6vw,42px);font-weight:800;line-height:1.4;padding:20px 34px;border-radius:26px;max-width:1400px;box-shadow:0 8px 0 rgba(0,0,0,.15)}
+.sylrow{display:flex;align-items:center;background:#fff;border-radius:26px;padding:16px 20px;box-shadow:0 8px 0 rgba(0,0,0,.15);flex-wrap:wrap;justify-content:center}
+.sylrow .sl{font-size:clamp(46px,5.6vw,86px);font-weight:900;color:#1565c0}.sylrow .sl.v{color:#e53935}
+.gap{width:clamp(22px,2.4vw,36px);height:clamp(70px,7vw,100px);margin:0 2px;border-radius:10px;background:rgba(0,0,0,.06);position:relative}
+.gap.on{background:#ffd54f}.gap.on::after{content:'✂️';position:absolute;top:-34px;left:50%;transform:translateX(-50%);font-size:26px}
+.gap.on::before{content:'';position:absolute;left:50%;top:6px;bottom:6px;border-left:5px dashed #e65100}
+.sent{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;background:#fff;border-radius:26px;padding:20px 28px;max-width:1500px;box-shadow:0 8px 0 rgba(0,0,0,.15)}
+.sw{font-size:clamp(30px,3.2vw,52px);font-weight:900;color:var(--ink);background:#eef4ff;border-radius:16px;padding:4px 14px}.sw.plain{background:none;padding:0}.sw.good{background:#c8f7c5;color:#1b5e20}
+.sent .pm{font-size:clamp(30px,3.2vw,52px);font-weight:900;color:var(--ink);margin-left:-10px}.sent .qbox{border-color:#90a4ae;color:var(--ink);font-size:clamp(30px,3.2vw,52px);font-weight:900}
+.bigw{display:inline-block;background:#fff;color:var(--ink);padding:4px 28px;border-radius:20px;font-size:1.3em;text-shadow:none;margin-bottom:8px}.bigw .qbox{border-color:#90a4ae}.suf{color:#e53935}
+@media(max-width:700px){.coin{width:62px;height:62px;font-size:22px}.coin.sm{width:46px;height:46px;font-size:16px}.stick i{width:14px;height:9px}.units i{width:14px;height:14px}.sylrow .sl{font-size:34px}.gap{width:16px;height:46px}.sw,.sent .pm,.sent .qbox{font-size:22px}.probtxt{font-size:19px;padding:12px 16px}.tile.g2o.word{font-size:20px;min-height:56px;padding:8px 14px}.tile.g2o.mid{font-size:28px}}
 </style>
 </head>
 <body>
@@ -769,6 +797,202 @@ function canSolve(i,hid){return REL.some(r=>r.includes(i)&&r.filter(j=>hid.inclu
 
 /* ---------- engine ---------- */
 const S={game:null,tasks:[],i:0};let token=0;
+/* ===== 2-сынып: қосымша ойындар ===== */
+const T10=10;
+function choose(st,opts,ans,done,cls,onOk){const row=el('div','tiles g2opts');let over=false;
+  shuffle(opts).forEach(v=>{const b=el('button','tile g2o'+(cls?' '+cls:''),String(v));
+    b.onclick=()=>{if(over)return;if(String(v)!==String(ans))return wrong(b);over=true;b.classList.add('g2ok');beep('tap');onOk&&onOk(b);done()};row.append(b)});
+  st.append(row);return row}
+function distract(ans,pool,n=3){return [ans,...pick(pool.filter(x=>String(x)!==String(ans)),n)]}
+function numOpts(ans,spread,min=0,max=200){const s=new Set([ans]);let g=0;while(s.size<4&&g++<300){const v=ans+rnd(-spread,spread);if(v>=min&&v<=max)s.add(v)}return [...s]}
+
+/* --- Сағат --- */
+function clockSVG(h,m){const a=(m/60)*360,b=((h%12)+m/60)*30;let n='';
+  for(let i=1;i<=12;i++){const r=i*30*Math.PI/180;n+=`<text x="${100+72*Math.sin(r)}" y="${100-72*Math.cos(r)+8}" text-anchor="middle" font-size="22" font-weight="900" fill="#1a2a4a">${i}</text>`}
+  let t='';for(let i=0;i<60;i++){const r=i*6*Math.PI/180,l=i%5?4:9;t+=`<line x1="${100+92*Math.sin(r)}" y1="${100-92*Math.cos(r)}" x2="${100+(92-l)*Math.sin(r)}" y2="${100-(92-l)*Math.cos(r)}" stroke="#1a2a4a" stroke-width="${i%5?1.5:3}"/>`}
+  return `<svg class="clock" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="#fff" stroke="#1a2a4a" stroke-width="6"/>${t}${n}
+  <line x1="100" y1="100" x2="${100+45*Math.sin(b*Math.PI/180)}" y2="${100-45*Math.cos(b*Math.PI/180)}" stroke="#e53935" stroke-width="9" stroke-linecap="round"/>
+  <line x1="100" y1="100" x2="${100+70*Math.sin(a*Math.PI/180)}" y2="${100-70*Math.cos(a*Math.PI/180)}" stroke="#1e88e5" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="100" r="7" fill="#1a2a4a"/></svg>`}
+const fmtT=(h,m)=>h+':'+String(m).padStart(2,'0');
+const MINS=[0,5,10,15,20,25,30,35,40,45,50,55];
+
+/* --- Мәтінді есептер --- */
+const PROB=[
+['Аружанда {a} алма бар еді. Анасы тағы {b} алма берді. Барлығы неше алма болды?','+'],
+['Себетте {a} алма бар еді. Балалар {b} алманы жеп қойды. Неше алма қалды?','-'],
+['Ағашта {a} торғай отырды. Тағы {b} торғай ұшып келді. Ағашта неше торғай болды?','+'],
+['Ағашта {a} торғай отырды. {b} торғай ұшып кетті. Неше торғай қалды?','-'],
+['Дәулетте {a} теңге бар еді. Ол {b} теңгеге қалам сатып алды. Неше теңге қалды?','-'],
+['Кітапта {a} бет бар. Мадина {b} бетін оқыды. Тағы неше бет оқу керек?','-'],
+['Бірінші сөреде {a} кітап, екінші сөреде {b} кітап бар. Екі сөреде барлығы неше кітап?','+'],
+['Сыныпта {a} ұл, {b} қыз оқиды. Сыныпта барлығы неше оқушы?','+'],
+['Автобуста {a} адам бар еді. Аялдамада {b} адам түсті. Автобуста неше адам қалды?','-'],
+['Автобуста {a} адам бар еді. Аялдамада тағы {b} адам мінді. Автобуста неше адам болды?','+'],
+['Атам {a} ағаш, әкем {b} ағаш отырғызды. Барлығы неше ағаш отырғызды?','+'],
+['Шелекте {a} литр су бар еді. Гүлдерге {b} литр су құйды. Шелекте неше литр су қалды?','-'],
+['Ерлан {a} сөз жазды, ал Айгүл {b} сөз жазды. Екеуі барлығы неше сөз жазды?','+'],
+['Дүкенде {a} доп бар еді. {b} доп сатылды. Дүкенде неше доп қалды?','-'],
+['Аулада {a} бала ойнап жүрді. {b} бала үйге кетті. Аулада неше бала қалды?','-'],
+['Бақшадан {a} қияр, {b} қызанақ жинады. Барлығы неше көкөніс жинады?','+'],
+['Тауықтың {a} балапаны бар еді. Тағы {b} балапан шықты. Барлығы неше балапан болды?','+'],
+['Қорапта {a} қарындаш бар еді. Оқушылар {b} қарындашты алды. Қорапта неше қарындаш қалды?','-'],
+['Арман {a} ұпай жинады. Нұр одан {b} ұпай артық жинады. Нұр неше ұпай жинады?','+'],
+['Ағамның {a} маркасы бар. Менің маркам одан {b} кем. Менде неше марка бар?','-'],
+['Тоғанда {a} үйрек жүзіп жүрді. {b} үйрек жағаға шықты. Тоғанда неше үйрек қалды?','-'],
+['Апам {a} бауырсақ пісірді. Біз {b} бауырсақ жедік. Неше бауырсақ қалды?','-'],
+['Бір қорапта {a} кәмпит, екінші қорапта {b} кәмпит бар. Барлығы неше кәмпит?','+'],
+['Кітапханада {a} ертегі кітабы бар еді. Балалар {b} кітапты алып кетті. Неше кітап қалды?','-'],
+['Мектеп ауласына {a} қайың, {b} терек отырғызды. Барлығы неше ағаш отырғызды?','+'],
+['Құмырсқалар {a} дән жинап еді. {b} дәнді жел ұшырып кетті. Неше дән қалды?','-'],
+['Таңертең {a} шар үрледік. Кешке {b} шар жарылып қалды. Неше шар қалды?','-'],
+['Жарыста Әли {a} рет, Санжар {b} рет секірді. Екеуі барлығы неше рет секірді?','+'],
+['Қыста құстарға {a} дән салдық, көктемде тағы {b} дән салдық. Барлығы неше дән салдық?','+'],
+['Пойызда {a} вагон бар еді. Тағы {b} вагон тіркеді. Пойызда неше вагон болды?','+']];
+
+/* --- Ұзындық --- */
+const LEN=[
+['1 дм = ? см',['10 см','100 см','1 см'],'10 см'],['1 м = ? см',['100 см','10 см','1000 см'],'100 см'],['1 м = ? дм',['10 дм','100 дм','1 дм'],'10 дм'],
+['2 дм = ? см',['20 см','2 см','200 см'],'20 см'],['5 дм = ? см',['50 см','5 см','500 см'],'50 см'],['3 м = ? дм',['30 дм','3 дм','300 дм'],'30 дм'],
+['40 см = ? дм',['4 дм','40 дм','400 дм'],'4 дм'],['70 см = ? дм',['7 дм','70 дм','17 дм'],'7 дм'],['100 см = ? м',['1 м','10 м','100 м'],'1 м'],
+['20 дм = ? м',['2 м','20 м','200 м'],'2 м'],['1 дм 5 см = ? см',['15 см','6 см','105 см'],'15 см'],['2 дм 3 см = ? см',['23 см','5 см','32 см'],'23 см'],
+['34 см = ?',['3 дм 4 см','4 дм 3 см','34 дм'],'3 дм 4 см'],['58 см = ?',['5 дм 8 см','8 дм 5 см','58 дм'],'5 дм 8 см'],['6 дм 2 см = ? см',['62 см','8 см','26 см'],'62 см'],
+['1 м ⬜ 90 см',['>','<','='],'>'],['5 дм ⬜ 45 см',['>','<','='],'>'],['1 дм ⬜ 12 см',['>','<','='],'<'],['3 дм ⬜ 30 см',['>','<','='],'='],
+['8 дм ⬜ 1 м',['>','<','='],'<'],['2 м ⬜ 20 дм',['>','<','='],'='],
+['✏️ Қарындаштың ұзындығы шамамен:',['15 см','15 дм','15 м'],'15 см'],['🚪 Есіктің биіктігі шамамен:',['2 м','2 см','2 дм'],'2 м'],
+['📒 Дәптердің ұзындығы шамамен:',['2 дм','2 м','2 см'],'2 дм'],['🧽 Өшіргіштің ұзындығы шамамен:',['4 см','4 дм','4 м'],'4 см'],
+['🏫 Сыныптың ұзындығы шамамен:',['8 м','8 дм','8 см'],'8 м'],['📏 Сызғыштың ұзындығы шамамен:',['20 см','20 м','20 дм'],'20 см'],
+['🪑 Үстелдің биіктігі шамамен:',['7 дм','7 см','7 м'],'7 дм'],['🪰 Шыбынның ұзындығы шамамен:',['1 см','1 дм','1 м'],'1 см'],
+['🚌 Автобустың ұзындығы шамамен:',['10 м','10 дм','10 см'],'10 м']];
+
+/* --- Дүкен --- */
+const SHOP=[['🍎','Алма',35],['🍞','Нан',60],['🥛','Сүт',75],['🍬','Кәмпит',12],['🍦','Балмұздақ',45],['✏️','Қарындаш',25],['📒','Дәптер',30],['🧃','Шырын',68],
+['🍪','Печенье',53],['🥕','Сәбіз',17],['🎈','Шар',40],['🧸','Ойыншық аю',99],['⚽','Доп',90],['🖍️','Бор',8],['🍋','Лимон',27],['🥚','Жұмыртқа',14],['🍫','Шоколад',64],
+['🧀','Ірімшік',85],['🍐','Алмұрт',33],['🍇','Жүзім',72],['🥒','Қияр',21],['🍅','Қызанақ',26],['📏','Сызғыш',19],['🧽','Өшіргіш',9],['🍉','Қарбыз',95],
+['🍭','Кәмпит таяқша',15],['🥯','Тоқаш',38],['🍓','Құлпынай',80],['🧁','Кекс',43],['🎨','Бояу',57]];
+const COINS=[50,20,10,5,2,1];
+
+/* --- Сөз таптары --- */
+const POS={z:['кітап','қала','мысық','ағаш','мұғалім','терезе','бала','күн','алма','дәптер','өзен','құс','үй','доп','гүл','ат','орындық','қалам','мектеп','тау','бұлт','нан','сағат','жол','дос','сабақ','көл','қар','балық','шам'],
+s:['әдемі','үлкен','кішкентай','қызыл','биік','ақылды','жылы','суық','тәтті','жасыл','ұзын','қысқа','жаңа','ескі','көңілді','таза','ақ','қара','жуан','жіңішке','ауыр','жеңіл','ыстық','мейірімді','жылдам','сары','кең','тар','дәмді','жұмсақ'],
+e:['оқыды','жазды','жүгірді','ойнады','келді','ұшты','секірді','айтты','көрді','барды','ішті','жеді','салды','тұрды','отырды','күлді','жүзді','тыңдады','сөйледі','ұйықтады','санады','біледі','жуды','тазалады','әкелді','берді','алды','кетті','жасады','көмектесті']};
+
+/* --- Буынға бөл --- */
+const SYLW=['балалар','қарындаш','мектеп','дәптер','сабақ','терезе','кітапхана','қаламсап','жұлдыз','көбелек','тасбақа','балмұздақ','орындық','қызанақ','сәбіз','қарбыз','бақша','жапырақ','қарлығаш','көкөніс','ертегі','жолбарыс','сарымсақ','тышқан','бөдене','жаңбыр','торғай','шырша','мысық','қасқыр','көктем','бүркіт','сағат','алтын','қаламыз'];
+const SV='аәеоөұүыіэ';
+function syl(w){const v=[...w].map((c,i)=>SV.includes(c)?i:-1).filter(i=>i>=0),cuts=[];
+  for(let k=1;k<v.length;k++){const g=v[k]-v[k-1]-1;cuts.push(g===0?v[k]:v[k]-1)}return cuts}
+
+/* --- Бас әріп --- */
+const CAPS=['Менің досымның аты *арман.','Біз *алматы қаласына бардық.','Мысығымның аты – *мими.','Жазда *ертіс өзенінде шомылдық.','Еліміздің астанасы – *астана.',
+'Әжем *шымкент қаласында тұрады.','Біздің мұғалім – *сәуле апай.','Біздің еліміз – *қазақстан.','Күшігіміздің аты – *ақтөс.','Ертең *айгүл мен *нұрлан келеді.',
+'Біз *балқаш көліне бардық.','Ағам *қарағанды қаласында оқиды.','Атамның атының аты – *тұлпар.','Сыныпта *дана жақсы оқиды.','Жазда біз *көкшетауға бардық.',
+'Апам маған *абай өлеңдерін оқыды.','Біздің көшенің аты – *достық.','Әкем *ақтөбеден келді.','Інім *ерлан бірінші сыныпта оқиды.','Біз *алатау тауларын көрдік.',
+'Мен *мадинамен дос болдым.','Біздің қаланың өзені – *есіл.','Сиырымыздың аты – *ақбас.','Ертең *самал туған күнін тойлайды.','Әпкем *түркістанда тұрады.',
+'Кітапты *ақмарал апай берді.','Біз *бурабайда демалдық.','Досым *тараздан көшіп келді.','Мен *әлия мен *дәулетті шақырдым.','Кеше *арнұр доп ойнады.'];
+
+/* --- Тыныс белгі --- */
+const PUNC={'.':['Біз мектепке барамыз','Күн жылы болды','Апам бауырсақ пісірді','Мысық сүт ішті','Далада қар жауып тұр','Мен кітап оқыдым','Құстар жылы жаққа ұшты','Әкем жұмыстан келді','Бақшада гүл өсті','Ертең демалыс күні'],
+'?':['Сен қайда барасың','Бүгін қандай күн','Сенің атың кім','Сабақ қашан басталады','Сен кітап оқыдың ба','Мұғалім келді ме','Бұл кімнің дәптері','Сен неше жастасың','Саған қай мезгіл ұнайды','Ертең ойнаймыз ба'],
+'!':['Қандай әдемі гүл','Ура, жаз келді','Абайла, жол қауіпті','Жарайсың, балам','Қандай тамаша күн','Мерекеңмен құттықтаймын','Тез жүгір','Қандай биік тау','Тоқта, қызыл шам жанып тұр','Ой, қандай суық']};
+
+/* --- Антоним --- */
+const ANT=[['үлкен','кіші'],['ыстық','суық'],['ұзын','қысқа'],['биік','аласа'],['жаңа','ескі'],['ақ','қара'],['күн','түн'],['жақсы','жаман'],['кең','тар'],['ауыр','жеңіл'],
+['жылдам','баяу'],['таза','лас'],['тәтті','ащы'],['жуан','жіңішке'],['көп','аз'],['алыс','жақын'],['ерте','кеш'],['қуанышты','қайғылы'],['батыл','қорқақ'],['бай','кедей'],
+['ашық','жабық'],['толық','бос'],['жас','кәрі'],['кіру','шығу'],['күлу','жылау'],['келу','кету'],['жоғары','төмен'],['дос','дұшпан'],['жұмсақ','қатты'],['ақылды','ақымақ']];
+
+/* --- Көптік жалғау --- */
+const PLUR=[['кітап','тар'],['бала','лар'],['гүл','дер'],['қала','лар'],['үй','лер'],['мектеп','тер'],['дәптер','лер'],['қалам','дар'],['ағаш','тар'],['ат','тар'],['қыз','дар'],['құс','тар'],
+['терезе','лер'],['ит','тер'],['көл','дер'],['күн','дер'],['жол','дар'],['дос','тар'],['мысық','тар'],['сабақ','тар'],['кеме','лер'],['есік','тер'],['бөлме','лер'],['жұлдыз','дар'],
+['орындық','тар'],['адам','дар'],['сөз','дер'],['тау','лар'],['әке','лер'],['бұлт','тар'],['жаңбыр','лар'],['торғай','лар'],['шелек','тер'],['көз','дер']];
+
+/* --- Уақыт --- */
+const DAYS=['Дүйсенбі','Сейсенбі','Сәрсенбі','Бейсенбі','Жұма','Сенбі','Жексенбі'];
+const MONTHS=['Қаңтар','Ақпан','Наурыз','Сәуір','Мамыр','Маусым','Шілде','Тамыз','Қыркүйек','Қазан','Қараша','Желтоқсан'];
+const SEAS=['Қыс','Көктем','Жаз','Күз'],seasOf=i=>SEAS[Math.floor(((i+1)%12)/3)];
+const ABLF=w=>{const hard=/[аоұыя]/.test([...w].reverse().find(c=>SV.includes(c))||''),v=hard?'ан':'ен';return w+(/[мнң]$/.test(w)?'н':/[кқпстфхшщ]$/.test(w)?'т':'д')+v};
+function calTasks(){const T=[];
+  DAYS.forEach((d,i)=>{T.push({q:`${ABLF(d)} кейін қай күн келеді?`,a:DAYS[(i+1)%7],o:DAYS});T.push({q:`${ABLF(d)} бұрын қай күн?`,a:DAYS[(i+6)%7],o:DAYS})});
+  MONTHS.forEach((m,i)=>{T.push({q:`${m} – қай мезгіл?`,a:seasOf(i),o:SEAS});T.push({q:`${ABLF(m)} кейін қай ай келеді?`,a:MONTHS[(i+1)%12],o:MONTHS})});
+  T.push({q:'Аптада неше күн бар?',a:'7',o:['5','7','10','12']},{q:'Бір жылда неше ай бар?',a:'12',o:['10','12','7','4']},{q:'Бір жылда неше мезгіл бар?',a:'4',o:['3','4','5','12']},
+    {q:'Жылдың бірінші айы қай ай?',a:'Қаңтар',o:MONTHS},{q:'Жылдың соңғы айы қай ай?',a:'Желтоқсан',o:MONTHS},{q:'Мектепте оқу қай айда басталады?',a:'Қыркүйек',o:MONTHS},
+    {q:'Наурыз мерекесі қай мезгілде тойланады?',a:'Көктем',o:SEAS},{q:'Жаңа жыл қай мезгілде келеді?',a:'Қыс',o:SEAS},{q:'Аптаның бірінші күні қай күн?',a:'Дүйсенбі',o:DAYS});
+  return T}
+
+const G2=[
+{ id:'clock', grade:2, title:'Сағатты оқы', icon:'🕐', bg:'#ffe0b2', sub:'Сағат нешені көрсетіп тұр?',
+  make:()=>{const s=new Set(),T=[];while(T.length<T10){const h=rnd(1,12),m=MINS[rnd(0,11)];if(s.has(h+':'+m))continue;s.add(h+':'+m);T.push({h,m})}return T},
+  render(t,st,done){st.append(el('div','task-title','Сағат нешені көрсетіп тұр?'),el('div','clockbox',clockSVG(t.h,t.m)));
+    const ans=fmtT(t.h,t.m),o=new Set([ans]);const alt=[fmtT(t.m/5||12,t.h*5%60),fmtT(t.h%12+1,t.m),fmtT(t.h,(t.m+30)%60),fmtT(t.h===1?12:t.h-1,t.m),fmtT(t.h,(t.m+15)%60)];
+    shuffle(alt).forEach(v=>{if(o.size<4)o.add(v)});choose(st,[...o],ans,done,'mid');
+    st.append(el('div','howto','🔴 Қысқа тіл – сағат, 🔵 ұзын тіл – минут'))}},
+{ id:'tens', grade:2, title:'Ондық пен бірлік', icon:'🔟', bg:'#c8e6c9', sub:'Санның құрамы: ондық + бірлік',
+  make:()=>pick(Array.from({length:89},(_,i)=>i+11).filter(n=>n%10),T10).map((n,i)=>({n,mode:i%2})),
+  render(t,st,done){const d=Math.floor(t.n/10),u=t.n%10;
+    if(t.mode===0){st.append(el('div','task-title','Бұл қандай сан?'));const pic=el('div','tenpic');
+      for(let i=0;i<d;i++)pic.append(el('div','stick','<i></i>'.repeat(10)));const us=el('div','units');for(let i=0;i<u;i++)us.append(el('i',''));pic.append(us);st.append(pic);
+      choose(st,[t.n,u*10+d,...numOpts(t.n,10,11,99).filter(x=>x!==t.n&&x!==u*10+d).slice(0,2)],t.n,done)}
+    else{st.append(el('div','task-title',`<span class="bignum">${t.n}</span> = ?`));
+      const a=`${d} ондық ${u} бірлік`,o=new Set([a,`${u} ондық ${d} бірлік`]);while(o.size<4){const x=rnd(1,9),y=rnd(1,9);if(x*10+y!==t.n)o.add(`${x} ондық ${y} бірлік`)}
+      choose(st,[...o],a,done,'word')}}},
+{ id:'mult', grade:2, title:'Көбейту кестесі', icon:'✖️', bg:'#d1c4e9', sub:'2, 3, 4, 5-ке көбейту',
+  make:()=>pick(Array.from({length:40},(_,i)=>({a:Math.floor(i/10)+2,b:i%10+1})),T10),
+  render(t,st,done){const E=['🍎','⭐','🌸','🐟','🍓','⚽'][rnd(0,5)];st.append(el('div','task-title',`${t.a} × ${t.b} = ?`));
+    const g=el('div','groups');for(let i=0;i<t.a;i++)g.append(el('div','grp',E.repeat(t.b)));st.append(g);
+    const ans=t.a*t.b,o=new Set([ans,t.a*(t.b+1),t.a*(t.b-1)||ans+1,t.a+t.b]);while(o.size<4)o.add(ans+rnd(-5,5));choose(st,[...o].slice(0,4),ans,done)}},
+{ id:'length', grade:2, title:'Ұзындық өлшемдері', icon:'📏', bg:'#b2dfdb', sub:'см, дм, м',
+  make:()=>pick(LEN,T10),
+  render(t,st,done){st.append(el('div','task-title',t[0].replace('⬜','<span class="qbox">?</span>')));choose(st,t[1],t[2],done,'word');
+    st.append(el('div','howto','1 дм = 10 см · 1 м = 10 дм = 100 см'))}},
+{ id:'shop', grade:2, title:'Дүкен', icon:'🛒', bg:'#ffecb3', sub:'Тиынмен дәл төле',
+  make:()=>pick(SHOP,T10),
+  render(t,st,done){const [e,nm,p]=t;st.append(el('div','task-title',`${e} ${nm} – <span class="price">${p} ₸</span>`),el('div','howto','Тиындарды басып, дәл соманы төле. Артық тиынды қайтару үшін оны бас.'));
+    const pay=el('div','paybox drop'),sum=el('div','paysum','Төледің: 0 ₸');let total=0,over=false;st.append(pay,sum);
+    const upd=()=>{sum.textContent=`Төледің: ${total} ₸`;sum.classList.toggle('bad',total>p);if(total===p&&!over){over=true;done()}else if(total>p){beep('bad');flash('Көп болып кетті! Тиынды қайтар')}};
+    const row=el('div','coins');COINS.forEach(v=>{const c=el('button','coin c'+v,`${v}<small>₸</small>`);
+      c.onclick=()=>{if(over)return;beep('tap');total+=v;const pc=el('button','coin sm c'+v,`${v}<small>₸</small>`);pc.onclick=()=>{if(over)return;total-=v;pc.remove();upd()};pay.append(pc);popIn(pc);upd()};row.append(c)});
+    st.append(row)}},
+{ id:'probs', grade:2, title:'Мәтінді есептер', icon:'📝', bg:'#f8bbd0', sub:'Амалды таңда, жауабын тап',
+  make:()=>pick(PROB,T10).map(([txt,op])=>{let a,b;if(op==='+'){a=rnd(12,59);b=rnd(5,39)}else{a=rnd(30,95);b=rnd(6,a-8)}return{txt:txt.replace('{a}',a).replace('{b}',b),a,b,op}}),
+  render(t,st,done){st.append(el('div','probtxt',t.txt));const ex=el('div','task-title',`${t.a} <span class="qbox">?</span> ${t.b} = <span class="qbox">?</span>`);st.append(ex);
+    const ans=t.op==='+'?t.a+t.b:t.a-t.b;
+    const r1=choose(st,['+','−'],t.op==='+'?'+':'−',()=>{ex.innerHTML=`${t.a} ${t.op==='+'?'+':'−'} ${t.b} = <span class="qbox">?</span>`;
+      setTimeout(()=>{r1.remove();choose(st,numOpts(ans,10,0,150),ans,()=>{ex.innerHTML=`${t.a} ${t.op==='+'?'+':'−'} ${t.b} = ${ans}`;done()})},300)},'',null)}},
+sortGame({ id:'pos', grade:2, title:'Сөз таптары', icon:'🏷️', bg:'#e1bee7', sub:'Зат есім, сын есім, етістік', wide:true,
+  q:'Сөздерді керек себетке сал', n:5, per:3, pool:POS,
+  bins:[{k:'z',label:'Зат есім<br><small>кім? не?</small>',color:'#ef9a9a'},{k:'s',label:'Сын есім<br><small>қандай?</small>',color:'#a5d6a7'},{k:'e',label:'Етістік<br><small>не істеді?</small>',color:'#90caf9'}]}),
+{ id:'syl', grade:2, title:'Буынға бөл', icon:'✂️', bg:'#ffccbc', sub:'Сөзді буынға бөл',
+  make:()=>pick(SYLW,T10),
+  render(w,st,done){st.append(el('div','task-title','Сөзді буынға бөл: әріптердің арасын бас ✂️'));const cuts=syl(w),on=new Set();
+    const row=el('div','sylrow');[...w].forEach((c,i)=>{if(i>0){const g=el('button','gap','');g.onclick=()=>{on.has(i)?on.delete(i):on.add(i);g.classList.toggle('on',on.has(i));beep('tap')};row.append(g)}row.append(el('span','sl'+(SV.includes(c)?' v':''),c.toUpperCase()))});
+    st.append(row);const ok=el('button','bigbtn green','ТЕКСЕРУ ✅');st.append(ok,el('div','howto',`Сөзде ${cuts.length+1} буын бар. Дауысты дыбыс саны = буын саны`));
+    ok.onclick=()=>{if(on.size===cuts.length&&cuts.every(c=>on.has(c))){ok.remove();done()}else wrong(row)}}},
+{ id:'caps', grade:2, title:'Бас әріп', icon:'🔠', bg:'#fff59d', sub:'Бас әріппен жазылатын сөзді тап',
+  make:()=>pick(CAPS,T10),
+  render(s,st,done){st.append(el('div','task-title','Қай сөз бас әріппен жазылуы керек? Басып таңда'));const box=el('div','sent');let left=(s.match(/\*/g)||[]).length;
+    s.split(' ').forEach((w,i)=>{const need=w.startsWith('*');const t=need?w.slice(1):w;const m=t.match(/^([^.,!?]+)(.*)$/)||[t,t,''];
+      if(t==='–'){box.append(el('span','pm','–'));return}const b=el('button','sw',m[1]);b.onclick=()=>{if(b.classList.contains('good'))return;if(!need||i===0){if(i===0)return;return wrong(b)}
+        b.textContent=m[1][0].toUpperCase()+m[1].slice(1);b.classList.add('good');beep('tap');popIn(b);if(!--left)done()};box.append(b);if(m[2])box.append(el('span','pm',m[2]))});
+    st.append(box,el('div','howto','Адамның аты, жануардың аты, қала, өзен, ел аты бас әріппен жазылады'))}},
+{ id:'punc', grade:2, title:'Сөйлем соңындағы белгі', icon:'❓', bg:'#b3e5fc', sub:'. ? ! белгілерін қой',
+  make:()=>shuffle(Object.entries(PUNC).flatMap(([k,a])=>pick(a,4).map(s=>({s,k})))).slice(0,T10),
+  render(t,st,done){st.append(el('div','task-title','Сөйлемнің соңына қандай белгі қойылады?'));const box=el('div','sent');const sl=el('span','qbox','?');
+    box.append(el('span','sw plain',t.s),sl);st.append(box);choose(st,['.','?','!'],t.k,done,'',()=>{sl.textContent=t.k;sl.className='qbox filled'});
+    st.append(el('div','howto','. – хабарлау · ? – сұрау · ! – леп (қатты сезім, бұйрық)'))}},
+{ id:'ant', grade:2, title:'Қарама-қарсы сөздер', icon:'🔄', bg:'#c5cae9', sub:'Антонимін тап',
+  make:()=>pick(ANT,T10).map(p=>Math.random()<.5?p:[p[1],p[0]]),
+  render(p,st,done){st.append(el('div','task-title',`<span class="bigw">${p[0]}</span><br>Қарама-қарсы мағыналы сөзді тап`));
+    choose(st,distract(p[1],ANT.flat().filter(x=>x!==p[0])),p[1],done,'word')}},
+{ id:'plur', grade:2, title:'Көптік жалғау', icon:'➕', bg:'#dcedc8', sub:'-лар, -лер, -дар, -дер, -тар, -тер',
+  make:()=>pick(PLUR,T10),
+  render(p,st,done){const w=el('span','bigw',p[0]+'<span class="qbox">?</span>');st.append(el('div','task-title','Дұрыс жалғауды таңда'));const d=el('div','task-title');d.append(w);st.append(d);
+    choose(st,['лар','лер','дар','дер','тар','тер'].map(x=>'-'+x),'-'+p[1],done,'mid',()=>{w.innerHTML=p[0]+`<b class="suf">${p[1]}</b>`});
+    st.append(el('div','howto','Дауысты, р, й, у → -лар/-лер · л, м, н, ң, з, ж → -дар/-дер · қалғандары → -тар/-тер'))}},
+{ id:'cal', grade:2, title:'Апта, ай, мезгіл', icon:'📅', bg:'#ffcdd2', sub:'Апта күндері, айлар, жыл мезгілдері',
+  make:()=>pick(calTasks(),T10),
+  render(t,st,done){st.append(el('div','task-title',t.q));choose(st,distract(t.a,t.o),t.a,done,'word')}},
+];
+
+GAMES.push(...G2);
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id))}
 function drawProgress(){const p=$('#progress');p.innerHTML='';if(S.game.noProgress)return;S.tasks.forEach((_,i)=>p.append(el('i',i<S.i?'done':i===S.i?'cur':'')))}
 function startGame(g){stopConfetti();S.game=g;S.tasks=g.make();S.i=0;$('#gtitle').textContent=g.title;$('#final').classList.remove('show');show('game');renderTask()}
