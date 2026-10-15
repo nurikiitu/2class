@@ -316,6 +316,42 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 .sylprev{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}.sylprev span{background:rgba(255,255,255,.9);color:var(--ink);font-size:clamp(28px,3vw,44px);font-weight:900;padding:4px 18px;border-radius:16px}
 .sylprev.right span{background:#c8f7c5}
 @media(max-width:700px){.npad{gap:6px}.nk{height:48px;font-size:22px}.nk.go{font-size:15px}.sylword{padding:8px 10px}.sylword .sl{font-size:36px}.sylprev span{font-size:20px}}
+
+.gcard.duelcard{background:linear-gradient(135deg,#ff5252,#7c4dff 55%,#2979ff);color:#fff;grid-column:span 2}.gcard.duelcard .ic{background:rgba(255,255,255,.25)!important}.gcard.duelcard .t,.gcard.duelcard .s{color:#fff}
+.dintro{color:#fff;font-weight:800;font-size:clamp(18px,1.8vw,26px);text-align:center;padding:6px 20px 0}
+.gcard.dcard .ic{background:linear-gradient(135deg,#ffcdd2,#bbdefb)}
+.dbody{flex:1;display:flex;flex-direction:column;gap:10px;padding:6px clamp(8px,1.4vw,24px) 14px;position:relative;min-height:0}
+#dgame.active{display:flex;flex-direction:column;height:100vh}
+.dtrack{position:relative;height:clamp(110px,20vh,200px);background:rgba(255,255,255,.18);border-radius:24px;overflow:hidden;flex:none}
+.th-rocket .dtrack{display:none}
+.tzone{position:absolute;top:0;bottom:0;width:10%;z-index:1}.tzone.l{left:0;background:rgba(229,57,53,.35)}.tzone.r{right:0;background:rgba(30,136,229,.35)}
+.tmid{position:absolute;left:50%;top:8%;bottom:8%;border-left:6px dashed #fff}
+.rope{position:absolute;left:0;right:0;top:50%;height:14px;margin-top:-7px;background:repeating-linear-gradient(45deg,#a1887f 0 12px,#795548 12px 24px);border-radius:7px}
+.rope .team{position:absolute;top:50%;transform:translateY(-55%);font-size:clamp(40px,5vh,70px);white-space:nowrap}.rope .team.l{left:1%}.rope .team.r{right:1%}
+.rope .team.l::before{content:'';position:absolute;inset:-6px;border-bottom:8px solid #e53935;border-radius:10px}.rope .team.r::before{content:'';position:absolute;inset:-6px;border-bottom:8px solid #1e88e5;border-radius:10px}
+.rope .knot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:clamp(40px,5vh,64px);transition:left .5s cubic-bezier(.3,1.6,.5,1);z-index:2}
+.lane{position:relative;height:50%;border-bottom:4px dashed rgba(255,255,255,.6)}.lane.l0{background:rgba(229,57,53,.22)}.lane.l1{background:rgba(30,136,229,.22);border:none}
+.lane .runner{position:absolute;left:0;top:50%;transform:translateY(-50%) scaleX(-1);font-size:clamp(40px,7vh,74px);transition:left .6s cubic-bezier(.3,1.4,.5,1)}
+.lane .flag{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:clamp(34px,5vh,60px)}
+.dsides{flex:1;display:flex;gap:14px;min-height:0}
+.dside{flex:1;display:flex;gap:10px;border-radius:26px;padding:12px;border:6px solid;transition:background .2s;min-width:0}
+.dside.s0{border-color:#e53935;background:rgba(229,57,53,.22)}.dside.s1{border-color:#0d47a1;background:rgba(13,71,161,.3);flex-direction:row-reverse}
+.dside.lock{opacity:.55}.dside.winner{background:rgba(67,160,71,.55)}
+.dmain{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0}
+.dhead{color:#fff;font-weight:900;font-size:clamp(20px,2vw,32px)}.dsc{background:#fff;color:var(--ink);border-radius:14px;padding:0 14px;margin-left:8px}
+.dq{background:#fff;color:var(--ink);border-radius:22px;padding:12px 20px;font-weight:900;font-size:clamp(22px,2.2vw,38px);text-align:center;width:100%;line-height:1.25;box-shadow:0 6px 0 rgba(0,0,0,.15)}
+.dq small{font-size:.6em;opacity:.75}.dq .dbig{font-size:1.5em}.dq .dtxt{font-size:.72em;font-weight:800;line-height:1.35}.dq .qbox{border-color:#90a4ae}.dq .price{color:#e53935}
+.dclock .clock{width:clamp(130px,22vh,220px);height:auto}
+.dopts{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.dopt{background:#fff;color:var(--ink);border-radius:18px;font-weight:900;font-size:clamp(20px,2vw,34px);padding:12px 8px;box-shadow:0 6px 0 #8aa2cc;min-height:clamp(56px,8vh,90px);line-height:1.15}
+.dopt:active{transform:translateY(4px);box-shadow:0 2px 0 #8aa2cc}.dopt.ok{background:#c8f7c5}.dopt.no{background:#ffcdd2}
+.rkcol{width:clamp(56px,6vw,90px);position:relative;border-radius:20px;background:linear-gradient(#0d1b4c,#3949ab);flex:none;overflow:hidden}
+.rkcol .moon{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:clamp(28px,3vw,44px)}
+.rkcol .rk{position:absolute;bottom:0;left:50%;transform:translateX(-50%) rotate(-45deg);font-size:clamp(34px,3.6vw,56px);transition:bottom .6s cubic-bezier(.3,1.4,.5,1)}
+.dfin{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:30;border-radius:20px}
+.dfin .fbox{background:#fff;border-radius:34px;padding:30px 50px;text-align:center}.dfin h2{font-size:clamp(34px,4vw,60px);color:#2e7d32}.dfin p{font-size:clamp(26px,2.6vw,40px);font-weight:900;margin:8px 0 16px}
+.dfin .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.dfin .tbtn{background:#1e88e5;color:#fff}
+@media(max-width:700px){.gcard.duelcard{grid-column:span 2}#dgame.active{height:auto;min-height:100vh}.dsides{flex-direction:column}.dside.s1{flex-direction:row}.dq{font-size:18px}.dopt{font-size:16px;min-height:48px}.dtrack{height:100px}}
 </style>
 </head>
 <body>
@@ -352,6 +388,16 @@ window.logout1=()=>{try{localStorage.removeItem('c2_ok')}catch(e){}location.href
   </div>
   <div class="progress" id="progress"></div>
   <div class="stage" id="stage"></div>
+</section>
+
+<section id="dhome" class="screen">
+  <div class="topbar"><button class="tbtn" onclick="DT++;show('home');openGrade(curGrade||2)">⬅ Ойындар</button><div class="ttitle">⚔️ 2 оқушы жарысы</div><button class="tbtn" onclick="toggleSound()">🔊</button></div>
+  <div class="dintro">Ойынды таңдаңдар! Сол жақта – 🔴 1-оқушы, оң жақта – 🔵 2-оқушы. Дұрыс жауап берген алға жылжиды.</div>
+  <div class="grid" id="dgrid"></div>
+</section>
+<section id="dgame" class="screen">
+  <div class="topbar"><button class="tbtn" onclick="stopConfetti();openDuels()">⬅ Жарыстар</button><div class="ttitle" id="dtitle"></div><button class="tbtn" onclick="toggleSound()">🔊</button></div>
+  <div id="dbody" class="dbody"></div>
 </section>
 
 <div id="final">
@@ -1024,6 +1070,63 @@ sortGame({ id:'pos', grade:2, title:'Сөз таптары', icon:'🏷️', bg:
 ];
 
 GAMES.push(...G2);
+/* ===== 2 оқушы жарысы (бөлек бөлім) ===== */
+const cap1=w=>w.charAt(0).toUpperCase()+w.slice(1);
+function coinSplit(p){const r=[];for(const v of COINS)while(p>=v){r.push(v);p-=v}return r.join(' + ')}
+const DGEN={
+ clock:()=>{const h=rnd(1,12),m=MINS[rnd(0,11)],a=fmtT(h,m),o=new Set([a]);[fmtT(m/5||12,h*5%60),fmtT(h%12+1,m),fmtT(h,(m+30)%60),fmtT(h===1?12:h-1,m),fmtT(h,(m+15)%60)].forEach(v=>o.size<4&&o.add(v));
+   return{q:`<div class="dclock">${clockSVG(h,m)}</div>`,o:[...o],a}},
+ tens:()=>{const n=rnd(11,99),d=Math.floor(n/10),u=n%10;if(!u)return DGEN.tens();const a=`${d} ондық ${u} бірлік`,o=new Set([a]);if(u!==d)o.add(`${u} ондық ${d} бірлік`);
+   while(o.size<4){const x=rnd(1,9),y=rnd(1,9);if(x!==d||y!==u)o.add(`${x} ондық ${y} бірлік`)}return{q:`<span class="dbig">${n}</span> = ?`,o:[...o],a}},
+ mult:()=>{const a=rnd(2,5),b=rnd(2,10),r=a*b,o=new Set([r,a*(b+1),a*(b-1),a+b]);while(o.size<4)o.add(r+rnd(-6,6));return{q:`<span class="dbig">${a} × ${b} = ?</span>`,o:[...o].slice(0,4),a:r}},
+ length:()=>{const t=LEN[rnd(0,LEN.length-1)];return{q:t[0].replace('⬜','<span class="qbox">?</span>'),o:t[1],a:t[2]}},
+ shop:()=>{const [e,nm,p]=SHOP[rnd(0,SHOP.length-1)],a=coinSplit(p),o=new Set([a]);[p+1,p-1,p+5,p-5,p+10,p-10,p+2].forEach(x=>{if(o.size<4&&x>0)o.add(coinSplit(x))});
+   return{q:`${e} ${nm} – <b class="price">${p} ₸</b><br><small>Қай тиындармен дәл төлейсің?</small>`,o:[...o],a}},
+ probs:()=>{const [txt,op]=PROB[rnd(0,PROB.length-1)];let a,b;if(op==='+'){a=rnd(12,59);b=rnd(5,39)}else{a=rnd(30,95);b=rnd(6,a-8)}const r=op==='+'?a+b:a-b;
+   const o=new Set([r,op==='+'?a-b:a+b]);while(o.size<4)o.add(r+rnd(-10,10));return{q:`<div class="dtxt">${txt.replace('{a}',a).replace('{b}',b)}</div>`,o:[...o],a:r}},
+ pos:()=>{const k=['z','s','e'][rnd(0,2)],w=POS[k][rnd(0,POS[k].length-1)],N={z:'Зат есім',s:'Сын есім',e:'Етістік'};return{q:`<span class="dbig">${w}</span><br><small>Бұл қай сөз табы?</small>`,o:Object.values(N),a:N[k]}},
+ syl:()=>{const w=SYLW[rnd(0,SYLW.length-1)],c=syl(w),L=[...w];const fmt=cs=>{let s='',p=0;[...cs].sort((a,b)=>a-b).concat(L.length).forEach(k=>{s+=(p?'-':'')+L.slice(p,k).join('');p=k});return s};
+   const a=fmt(c),o=new Set([a]);let g=0;while(o.size<4&&g++<60){const cs=c.map(x=>x+(Math.random()<.5?rnd(-1,1):0)).filter(x=>x>0&&x<L.length);if(new Set(cs).size===cs.length&&cs.length)o.add(fmt(cs))}
+   if(o.size<2)return DGEN.syl();return{q:`<span class="dbig">${w}</span><br><small>Буынға дұрыс бөлінгенін тап</small>`,o:[...o],a}},
+ caps:()=>{const s=CAPS[rnd(0,CAPS.length-1)];const words=s.split(' ').map(w=>w.replace(/[.,!?]/g,''));const need=words.filter(w=>w.startsWith('*')).map(w=>w.slice(1));
+   const a=cap1(need[0]),other=words.slice(1).filter(w=>!w.startsWith('*')&&w!=='–'&&w.length>2).map(cap1);
+   return{q:`<div class="dtxt">${s.replace(/\*/g,'')}</div><small>Қай сөз бас әріппен жазылады?</small>`,o:[a,...pick(other,3)],a}},
+ punc:()=>{const k=['.','?','!'][rnd(0,2)],s=PUNC[k][rnd(0,9)];return{q:`<div class="dtxt">${s} <span class="qbox">?</span></div>`,o:['.','?','!'],a:k}},
+ ant:()=>{const p=ANT[rnd(0,ANT.length-1)],[w,a]=Math.random()<.5?p:[p[1],p[0]];return{q:`<span class="dbig">${w}</span><br><small>Қарама-қарсы сөзі қайсы?</small>`,o:distract(a,ANT.flat().filter(x=>x!==w&&x!==a)),a}},
+ plur:()=>{const [w,s]=PLUR[rnd(0,PLUR.length-1)];const all=['лар','лер','дар','дер','тар','тер'];return{q:`<span class="dbig">${w}<span class="qbox">?</span></span>`,o:distract(s,all).map(x=>w+x),a:w+s}},
+ cal:()=>{const T=calTasks(),t=T[rnd(0,T.length-1)];return{q:`<div class="dtxt">${t.q}</div>`,o:distract(t.a,t.o),a:t.a}}};
+const THEMES={tug:{n:'Арқан тартыс',i:'🪢'},rocket:{n:'Ракета',i:'🚀'},race:{n:'Көлік жарысы',i:'🏎️'},horse:{n:'Бәйге',i:'🏇'}};
+const DUELS=[['clock','rocket','🕐','Сағатты оқы'],['tens','tug','🔟','Ондық пен бірлік'],['mult','race','✖️','Көбейту кестесі'],['length','horse','📏','Ұзындық өлшемдері'],
+ ['shop','tug','🛒','Дүкен: тиындар'],['probs','rocket','📝','Мәтінді есептер'],['pos','tug','🏷️','Сөз таптары'],['syl','race','✂️','Буынға бөл'],['caps','horse','🔠','Бас әріп'],
+ ['punc','rocket','❓','Сөйлем соңындағы белгі'],['ant','tug','🔄','Қарама-қарсы сөздер'],['plur','race','➕','Көптік жалғау'],['cal','horse','📅','Апта, ай, мезгіл']];
+let DT=0,DCUR=null;
+function openDuels(){DT++;show('dhome');const g=$('#dgrid');g.innerHTML='';
+  DUELS.forEach(d=>{const T=THEMES[d[1]];const c=el('button','gcard dcard',`<div class="ic">${T.i}</div><div class="t">${d[3]}</div><div class="s">${d[2]} ${T.n}</div>`);c.onclick=()=>{beep('tap');startDuel(d)};g.append(c)});
+  GAMES.filter(x=>x.inDuel&&x.grade===curGrade).forEach(x=>{const c=el('button','gcard dcard',`<div class="ic">${x.icon}</div><div class="t">${x.title.replace('Жарыс: ','')}</div><div class="s">⚡ Кім жылдам</div>`);c.onclick=()=>{beep('tap');x._fromDuel=true;startGame(x)};g.append(c)})}
+function startDuel(d){const id=++DT;DCUR=d;stopConfetti();show('dgame');const [gk,th,ic,title]=d,T=THEMES[th],GOAL=th==='tug'?5:7;
+  $('#dtitle').textContent=`${T.i} ${T.n} · ${title}`;const box=$('#dbody');box.innerHTML='';box.className='dbody th-'+th;
+  let sc=[0,0],pos=0,over=false;
+  const track=el('div','dtrack');box.append(track);
+  if(th==='tug'){track.innerHTML=`<div class="tzone l"></div><div class="tzone r"></div><div class="tmid"></div><div class="rope"><span class="team l">🧒🧒🧒</span><span class="knot">🎀</span><span class="team r">🧒🧒🧒</span></div>`}
+  else if(th!=='rocket'){const E=th==='race'?['🏎️','🚙']:['🏇','🏇'];track.innerHTML=[0,1].map(i=>`<div class="lane l${i}"><span class="runner">${E[i]}</span><span class="flag">🏁</span></div>`).join('')}
+  const sides=el('div','dsides');box.append(sides);
+  const S2=[0,1].map(i=>{const s=el('div','dside s'+i,`${th==='rocket'?'<div class="rkcol"><span class="moon">🌙</span><span class="rk">🚀</span></div>':''}<div class="dmain"><div class="dhead">${i?'🔵 2-оқушы':'🔴 1-оқушы'} <b class="dsc">0</b></div><div class="dq"></div><div class="dopts"></div></div>`);sides.append(s);return s});
+  const draw=()=>{if(th==='tug'){track.querySelector('.knot').style.left=(50+pos*8)+'%'}
+    else if(th==='rocket'){S2.forEach((s,i)=>s.querySelector('.rk').style.bottom=(sc[i]/GOAL*82)+'%')}
+    else track.querySelectorAll('.runner').forEach((r,i)=>r.style.left=`calc(${sc[i]/GOAL*86}% )`);
+    S2.forEach((s,i)=>s.querySelector('.dsc').textContent=th==='tug'?sc[i]:sc[i]+' / '+GOAL)};
+  const ask=i=>{if(!alive())return;const s=S2[i];let t,g=0;do{t=DGEN[gk]()}while(s._last===t.q&&g++<5);s._last=t.q;
+    s.querySelector('.dq').innerHTML=t.q;const op=s.querySelector('.dopts');op.innerHTML='';
+    shuffle(t.o).forEach(v=>{const b=el('button','dopt',String(v));b.onclick=()=>{if(over||s.classList.contains('lock'))return;
+      if(String(v)===String(t.a)){b.classList.add('ok');beep('tap');sc[i]++;if(th==='tug')pos+=i?1:-1;draw();
+        if((th==='tug'&&Math.abs(pos)>=GOAL)||(th!=='tug'&&sc[i]>=GOAL))return win(i);setTimeout(()=>ask(i),350)}
+      else{b.classList.add('no');beep('bad');s.classList.add('lock');s.classList.remove('shake');void s.offsetWidth;s.classList.add('shake');setTimeout(()=>{s.classList.remove('lock');alive()&&!over&&ask(i)},1300)}};op.append(b)})};
+  const alive=()=>id===DT;
+  function win(i){over=true;S2[i].classList.add('winner');beep('win');confetti();setTimeout(()=>{if(!alive())return;const f=el('div','dfin',`<div class="fbox"><div class="stars">🏆</div><h2>${i?'🔵 2-оқушы':'🔴 1-оқушы'} жеңді!</h2><p>🔴 ${sc[0]} : ${sc[1]} 🔵</p><div class="row"><button class="tbtn a">🔁 Қайтадан</button><button class="tbtn b">⚔️ Жарыстар</button></div></div>`);
+    f.querySelector('.a').onclick=()=>startDuel(d);f.querySelector('.b').onclick=()=>{stopConfetti();openDuels()};box.append(f)},900)}
+  draw();ask(0);ask(1)}
+
+GAMES.forEach(g=>{if(/^duel\d/.test(g.id))g.inDuel=true});
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id))}
 function drawProgress(){const p=$('#progress');p.innerHTML='';if(S.game.noProgress)return;S.tasks.forEach((_,i)=>p.append(el('i',i<S.i?'done':i===S.i?'cur':'')))}
 function startGame(g){stopConfetti();S.game=g;S.err=0;S.tasks=g.make();S.i=0;$('#gtitle').textContent=g.title;$('#final').classList.remove('show');show('game');renderTask()}
@@ -1042,7 +1145,8 @@ const GRADES=[{n:1,c:'#ef5350'},{n:2,c:'#ffa726'},{n:3,c:'#66bb6a'},{n:4,c:'#ab4
 let curGrade=null;
 function showGrades(){curGrade=null;$('#grades').style.display='';$('#gradebar').style.display='none';$('#grid').innerHTML=''}
 function openGrade(n){curGrade=n;$('#grades').style.display='none';$('#gradebar').style.display='flex';$('#gname').textContent=n+'-СЫНЫП';
-  const grid=$('#grid');grid.innerHTML='';const list=GAMES.filter(g=>g.grade===n);
+  const grid=$('#grid');grid.innerHTML='';const list=GAMES.filter(g=>g.grade===n&&!g.inDuel);
+  if(n===2){const c=el('button','gcard duelcard',`<div class="ic">⚔️</div><div class="t">2 оқушы жарысы</div><div class="s">🪢 Арқан тартыс · 🚀 Ракета · 🏎️ Көлік жарысы · 🏇 Бәйге</div>`);c.onclick=()=>{beep('tap');openDuels()};grid.append(c)}
   if(n===3){const c=el('a','gcard',`<div class="ic" style="background:#d1c4e9">🚀</div><div class="t">Көбейту әлемі</div><div class="s">8 ойын: көбейту мен бөлу</div>`);c.href='https://nurikiitu.github.io/kobeytu-alemi/';c.style.textDecoration='none';c.style.color='inherit';grid.append(c)}
   else if(!list.length)grid.append(el('div','soon','🛠 Жақында ойындар қосылады!'));
   list.forEach(g=>{const c=el('button','gcard',`<div class="ic" style="background:${g.bg}">${g.icon}</div><div class="t">${g.title}</div><div class="s">${g.sub}</div>`);c.onclick=()=>{beep('tap');startGame(g)};grid.append(c)})}
