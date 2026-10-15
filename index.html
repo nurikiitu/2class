@@ -359,7 +359,7 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 <div id="gate"><form class="gbox" id="gf"><div style="font-size:72px">🧠</div><h2>neuroUstaz · 2-сынып</h2><p>Кіру коды</p>
 <input id="gc" autocomplete="off" spellcheck="false" placeholder="КОД"><button class="tbtn gbtn">Кіру ➜</button><div class="gerr" id="ge"></div></form></div>
 <script>
-(function(){const H=['484fab4797172124c8f8e4d12fee79352e2be44e0e6ab33b3c60615b42f99d9e', 'e4723f7aa10b86c0bee5913e8c148419e3f9ae7ddd644975034d8fadbf277779'];
+(function(){const H=['484fab4797172124c8f8e4d12fee79352e2be44e0e6ab33b3c60615b42f99d9e', 'e4723f7aa10b86c0bee5913e8c148419e3f9ae7ddd644975034d8fadbf277779', 'b2f846056c4fc7548c6adf5f396edba69d1b7672013546f81748cee0635cccf7'];
 const sha=async s=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('class2:'+s.trim().toUpperCase()));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
 const g=document.getElementById('gate'),inp=document.getElementById('gc'),er=document.getElementById('ge');
 async function tryC(c){const h=await sha(c);if(H.includes(h)){try{localStorage.setItem('c2_ok',h)}catch(e){}g.style.display='none';return}er.textContent='Код қате. Қайта тексеріңіз.'}
