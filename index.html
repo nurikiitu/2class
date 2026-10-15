@@ -300,6 +300,22 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 .sent .pm{font-size:clamp(30px,3.2vw,52px);font-weight:900;color:var(--ink);margin-left:-10px}.sent .qbox{border-color:#90a4ae;color:var(--ink);font-size:clamp(30px,3.2vw,52px);font-weight:900}
 .bigw{display:inline-block;background:#fff;color:var(--ink);padding:4px 28px;border-radius:20px;font-size:1.3em;text-shadow:none;margin-bottom:8px}.bigw .qbox{border-color:#90a4ae}.suf{color:#e53935}
 @media(max-width:700px){.coin{width:62px;height:62px;font-size:22px}.coin.sm{width:46px;height:46px;font-size:16px}.stick i{width:14px;height:9px}.units i{width:14px;height:14px}.sylrow .sl{font-size:34px}.gap{width:16px;height:46px}.sw,.sent .pm,.sent .qbox{font-size:22px}.probtxt{font-size:19px;padding:12px 16px}.tile.g2o.word{font-size:20px;min-height:56px;padding:8px 14px}.tile.g2o.mid{font-size:28px}}
+
+.errline{margin-top:10px;font-size:.85em;font-weight:900;color:#e53935}.errline.zero{color:#2e7d32}
+.inbox{display:inline-block;min-width:2.2em;min-height:1.25em;padding:0 12px;background:#fff;color:var(--ink);border-radius:16px;border:5px solid #fff;text-shadow:none;text-align:center;cursor:pointer;vertical-align:middle;min-height:1.2em;line-height:1.2}
+.inbox.cur{border-color:#ffd54f;box-shadow:0 0 0 5px rgba(255,213,79,.45)}.inbox.right{background:#c8f7c5;border-color:#2e7d32}
+.npad{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;max-width:860px;width:100%}
+.nk{height:clamp(58px,6.4vw,84px);border-radius:18px;background:#fff;color:var(--ink);font-size:clamp(28px,3vw,44px);font-weight:900;box-shadow:0 6px 0 #8aa2cc}
+.nk:active{transform:translateY(4px);box-shadow:0 2px 0 #8aa2cc}.nk.bk{background:#ffe0b2}.nk.go{grid-column:span 3;background:#43a047;color:#fff;box-shadow:0 6px 0 #1b5e20;font-size:clamp(20px,2vw,30px)}
+.tensq{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.opsel{cursor:pointer;background:rgba(255,255,255,.2);font:inherit;color:inherit;min-width:1.4em}
+.sylword{display:flex;background:#fff;border-radius:26px;padding:14px 22px;box-shadow:0 8px 0 rgba(0,0,0,.15)}
+.sylword .sl{font-size:clamp(50px,6vw,92px);font-weight:900;color:#1565c0;background:none;padding:0 2px;line-height:1.1;position:relative;border-radius:10px}
+.sylword .sl.v{color:#e53935}.sylword .sl:hover{background:#f1f5ff}
+.sylword .sl.cut{background:#fff3c4}.sylword .sl.cut::after{content:'';position:absolute;right:-4px;top:8%;bottom:8%;border-right:6px solid #ff6d00;border-radius:3px}
+.sylprev{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}.sylprev span{background:rgba(255,255,255,.9);color:var(--ink);font-size:clamp(28px,3vw,44px);font-weight:900;padding:4px 18px;border-radius:16px}
+.sylprev.right span{background:#c8f7c5}
+@media(max-width:700px){.npad{gap:6px}.nk{height:48px;font-size:22px}.nk.go{font-size:15px}.sylword{padding:8px 10px}.sylword .sl{font-size:36px}.sylprev span{font-size:20px}}
 </style>
 </head>
 <body>
@@ -394,7 +410,7 @@ function dragTile(tile,onTap,onDrop){
 /* ---------- feedback ---------- */
 let flashT;
 function flash(t){const f=$('#flash');f.textContent=t;f.classList.add('show');clearTimeout(flashT);flashT=setTimeout(()=>f.classList.remove('show'),900)}
-function wrong(e){e.classList.remove('shake');void e.offsetWidth;e.classList.add('shake');beep('bad');flash('Тағы байқап көр 🙂')}
+function wrong(e){S.err=(S.err||0)+1;e.classList.remove('shake');void e.offsetWidth;e.classList.add('shake');beep('bad');flash('Тағы байқап көр 🙂')}
 function popIn(e){e.classList.remove('pop');void e.offsetWidth;e.classList.add('pop')}
 let CF=0;function stopConfetti(){CF++;const c=$('#confetti');c.getContext('2d').clearRect(0,0,c.width,c.height);c.width=c.width}
 function confetti(){setTimeout(()=>{if(CF===my)stopConfetti()},4500);const my=++CF,c=$('#confetti'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;
@@ -858,11 +874,9 @@ const LEN=[
 ['34 см = ?',['3 дм 4 см','4 дм 3 см','34 дм'],'3 дм 4 см'],['58 см = ?',['5 дм 8 см','8 дм 5 см','58 дм'],'5 дм 8 см'],['6 дм 2 см = ? см',['62 см','8 см','26 см'],'62 см'],
 ['1 м ⬜ 90 см',['>','<','='],'>'],['5 дм ⬜ 45 см',['>','<','='],'>'],['1 дм ⬜ 12 см',['>','<','='],'<'],['3 дм ⬜ 30 см',['>','<','='],'='],
 ['8 дм ⬜ 1 м',['>','<','='],'<'],['2 м ⬜ 20 дм',['>','<','='],'='],
-['✏️ Қарындаштың ұзындығы шамамен:',['15 см','15 дм','15 м'],'15 см'],['🚪 Есіктің биіктігі шамамен:',['2 м','2 см','2 дм'],'2 м'],
-['📒 Дәптердің ұзындығы шамамен:',['2 дм','2 м','2 см'],'2 дм'],['🧽 Өшіргіштің ұзындығы шамамен:',['4 см','4 дм','4 м'],'4 см'],
-['🏫 Сыныптың ұзындығы шамамен:',['8 м','8 дм','8 см'],'8 м'],['📏 Сызғыштың ұзындығы шамамен:',['20 см','20 м','20 дм'],'20 см'],
-['🪑 Үстелдің биіктігі шамамен:',['7 дм','7 см','7 м'],'7 дм'],['🪰 Шыбынның ұзындығы шамамен:',['1 см','1 дм','1 м'],'1 см'],
-['🚌 Автобустың ұзындығы шамамен:',['10 м','10 дм','10 см'],'10 м']];
+['1 м ⬜ 100 см',['>','<','='],'='],['4 дм ⬜ 50 см',['>','<','='],'<'],['9 дм ⬜ 90 см',['>','<','='],'='],['65 см ⬜ 6 дм',['>','<','='],'>'],
+['3 дм 5 см = ? см',['35 см','8 см','53 см'],'35 см'],['80 см = ? дм',['8 дм','80 дм','18 дм'],'8 дм'],['4 м = ? дм',['40 дм','4 дм','400 дм'],'40 дм'],
+['9 дм = ? см',['90 см','9 см','900 см'],'90 см'],['47 см = ?',['4 дм 7 см','7 дм 4 см','47 дм'],'4 дм 7 см'],['10 дм = ? м',['1 м','10 м','100 м'],'1 м']];
 
 /* --- Дүкен --- */
 const SHOP=[['🍎','Алма',35],['🍞','Нан',60],['🥛','Сүт',75],['🍬','Кәмпит',12],['🍦','Балмұздақ',45],['✏️','Қарындаш',25],['📒','Дәптер',30],['🧃','Шырын',68],
@@ -918,6 +932,17 @@ function calTasks(){const T=[];
     {q:'Наурыз мерекесі қай мезгілде тойланады?',a:'Көктем',o:SEAS},{q:'Жаңа жыл қай мезгілде келеді?',a:'Қыс',o:SEAS},{q:'Аптаның бірінші күні қай күн?',a:'Дүйсенбі',o:DAYS});
   return T}
 
+const reanimS=e=>{e.classList.remove('shake');void e.offsetWidth;e.classList.add('shake')};
+function numPad(st,fields,check){let cur=0;const vals=fields.map(()=>'');
+  const set=()=>fields.forEach((f,i)=>{f.textContent=vals[i]||' ';f.classList.toggle('cur',i===cur)});
+  fields.forEach((f,i)=>{f.classList.add('inbox');f.onclick=()=>{cur=i;set()}});
+  const pad=el('div','npad');[1,2,3,4,5,6,7,8,9,0,'⌫','✓'].forEach(k=>{const b=el('button','nk'+(k==='✓'?' go':k==='⌫'?' bk':''),k==='✓'?'ТЕКСЕРУ':String(k));
+    b.onclick=()=>press(k);pad.append(b)});st.append(pad);
+  function press(k){if(k==='⌫'){vals[cur]=vals[cur].slice(0,-1)}else if(k==='✓'){if(vals.some(v=>v===''))return wrong(fields[vals.findIndex(v=>v==='')]);
+      if(check(vals.map(Number)))return;wrong(fields[0]);fields.forEach(f=>{f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake')});vals.fill('');cur=0}
+    else if(vals[cur].length<3){vals[cur]+=k;if(fields.length>1&&vals[cur].length>=(fields[cur].dataset.len||2)&&cur<fields.length-1)cur++}beep('tap');set()}
+  const kd=e=>{if(!document.body.contains(pad))return document.removeEventListener('keydown',kd);if(/^\d$/.test(e.key))press(+e.key);else if(e.key==='Backspace')press('⌫');else if(e.key==='Enter')press('✓')};
+  document.addEventListener('keydown',kd);set();return pad}
 const G2=[
 { id:'clock', grade:2, title:'Сағатты оқы', icon:'🕐', bg:'#ffe0b2', sub:'Сағат нешені көрсетіп тұр?',
   make:()=>{const s=new Set(),T=[];while(T.length<T10){const h=rnd(1,12),m=MINS[rnd(0,11)];if(s.has(h+':'+m))continue;s.add(h+':'+m);T.push({h,m})}return T},
@@ -928,12 +953,13 @@ const G2=[
 { id:'tens', grade:2, title:'Ондық пен бірлік', icon:'🔟', bg:'#c8e6c9', sub:'Санның құрамы: ондық + бірлік',
   make:()=>pick(Array.from({length:89},(_,i)=>i+11).filter(n=>n%10),T10).map((n,i)=>({n,mode:i%2})),
   render(t,st,done){const d=Math.floor(t.n/10),u=t.n%10;
-    if(t.mode===0){st.append(el('div','task-title','Бұл қандай сан?'));const pic=el('div','tenpic');
+    if(t.mode===0){st.append(el('div','task-title','Бұл қандай сан? Жаз'));const pic=el('div','tenpic');
       for(let i=0;i<d;i++)pic.append(el('div','stick','<i></i>'.repeat(10)));const us=el('div','units');for(let i=0;i<u;i++)us.append(el('i',''));pic.append(us);st.append(pic);
-      choose(st,[t.n,u*10+d,...numOpts(t.n,10,11,99).filter(x=>x!==t.n&&x!==u*10+d).slice(0,2)],t.n,done)}
-    else{st.append(el('div','task-title',`<span class="bignum">${t.n}</span> = ?`));
-      const a=`${d} ондық ${u} бірлік`,o=new Set([a,`${u} ондық ${d} бірлік`]);while(o.size<4){const x=rnd(1,9),y=rnd(1,9);if(x*10+y!==t.n)o.add(`${x} ондық ${y} бірлік`)}
-      choose(st,[...o],a,done,'word')}}},
+      const f=el('span','');const r=el('div','task-title');r.append(f);st.append(r);f.dataset.len=2;
+      numPad(st,[f],([v])=>{if(v===t.n){f.classList.add('right');done();return true}})}
+    else{const a=el('span',''),b=el('span','');a.dataset.len=1;b.dataset.len=1;const r=el('div','task-title tensq');
+      r.append(el('span','bignum',t.n),' = ',a,' ондық ',b,' бірлік');st.append(el('div','task-title','Санды ондық пен бірлікке жікте'),r);
+      numPad(st,[a,b],([x,y])=>{if(x===d&&y===u){a.classList.add('right');b.classList.add('right');done();return true}})}}},
 { id:'mult', grade:2, title:'Көбейту кестесі', icon:'✖️', bg:'#d1c4e9', sub:'2, 3, 4, 5-ке көбейту',
   make:()=>pick(Array.from({length:40},(_,i)=>({a:Math.floor(i/10)+2,b:i%10+1})),T10),
   render(t,st,done){const E=['🍎','⭐','🌸','🐟','🍓','⚽'][rnd(0,5)];st.append(el('div','task-title',`${t.a} × ${t.b} = ?`));
@@ -951,21 +977,26 @@ const G2=[
     const row=el('div','coins');COINS.forEach(v=>{const c=el('button','coin c'+v,`${v}<small>₸</small>`);
       c.onclick=()=>{if(over)return;beep('tap');total+=v;const pc=el('button','coin sm c'+v,`${v}<small>₸</small>`);pc.onclick=()=>{if(over)return;total-=v;pc.remove();upd()};pay.append(pc);popIn(pc);upd()};row.append(c)});
     st.append(row)}},
-{ id:'probs', grade:2, title:'Мәтінді есептер', icon:'📝', bg:'#f8bbd0', sub:'Амалды таңда, жауабын тап',
+{ id:'probs', grade:2, title:'Мәтінді есептер', icon:'📝', bg:'#f8bbd0', sub:'Амалды таңда, жауабын өзің жаз',
   make:()=>pick(PROB,T10).map(([txt,op])=>{let a,b;if(op==='+'){a=rnd(12,59);b=rnd(5,39)}else{a=rnd(30,95);b=rnd(6,a-8)}return{txt:txt.replace('{a}',a).replace('{b}',b),a,b,op}}),
-  render(t,st,done){st.append(el('div','probtxt',t.txt));const ex=el('div','task-title',`${t.a} <span class="qbox">?</span> ${t.b} = <span class="qbox">?</span>`);st.append(ex);
-    const ans=t.op==='+'?t.a+t.b:t.a-t.b;
-    const r1=choose(st,['+','−'],t.op==='+'?'+':'−',()=>{ex.innerHTML=`${t.a} ${t.op==='+'?'+':'−'} ${t.b} = <span class="qbox">?</span>`;
-      setTimeout(()=>{r1.remove();choose(st,numOpts(ans,10,0,150),ans,()=>{ex.innerHTML=`${t.a} ${t.op==='+'?'+':'−'} ${t.b} = ${ans}`;done()})},300)},'',null)}},
+  render(t,st,done){st.append(el('div','probtxt',t.txt));const sign=el('button','qbox opsel','?'),ansF=el('span','');ansF.dataset.len=3;
+    const ex=el('div','task-title');ex.append(`${t.a} `,sign,` ${t.b} = `,ansF);st.append(ex);let op=null;
+    const ops=el('div','tiles');['+','−'].forEach(v=>{const b=el('button','tile g2o mid',v);b.onclick=()=>{op=v;sign.textContent=v;sign.classList.add('filled');ops.querySelectorAll('.tile').forEach(x=>x.classList.toggle('g2ok',x===b));beep('tap')};ops.append(b)});
+    st.append(el('div','howto','1) Амалды таңда: + немесе −   2) Жауабын жаз да, ТЕКСЕРУ бас'),ops);
+    const ans=t.op==='+'?t.a+t.b:t.a-t.b,want=t.op==='+'?'+':'−';
+    numPad(st,[ansF],([v])=>{if(!op){flash('Алдымен амалды таңда: + немесе −');reanimS(sign);return true}
+      if(op!==want){flash('Амал дұрыс емес');return false}if(v===ans){ansF.classList.add('right');done();return true}})}},
 sortGame({ id:'pos', grade:2, title:'Сөз таптары', icon:'🏷️', bg:'#e1bee7', sub:'Зат есім, сын есім, етістік', wide:true,
   q:'Сөздерді керек себетке сал', n:5, per:3, pool:POS,
   bins:[{k:'z',label:'Зат есім<br><small>кім? не?</small>',color:'#ef9a9a'},{k:'s',label:'Сын есім<br><small>қандай?</small>',color:'#a5d6a7'},{k:'e',label:'Етістік<br><small>не істеді?</small>',color:'#90caf9'}]}),
 { id:'syl', grade:2, title:'Буынға бөл', icon:'✂️', bg:'#ffccbc', sub:'Сөзді буынға бөл',
   make:()=>pick(SYLW,T10),
-  render(w,st,done){st.append(el('div','task-title','Сөзді буынға бөл: әріптердің арасын бас ✂️'));const cuts=syl(w),on=new Set();
-    const row=el('div','sylrow');[...w].forEach((c,i)=>{if(i>0){const g=el('button','gap','');g.onclick=()=>{on.has(i)?on.delete(i):on.add(i);g.classList.toggle('on',on.has(i));beep('tap')};row.append(g)}row.append(el('span','sl'+(SV.includes(c)?' v':''),c.toUpperCase()))});
-    st.append(row);const ok=el('button','bigbtn green','ТЕКСЕРУ ✅');st.append(ok,el('div','howto',`Сөзде ${cuts.length+1} буын бар. Дауысты дыбыс саны = буын саны`));
-    ok.onclick=()=>{if(on.size===cuts.length&&cuts.every(c=>on.has(c))){ok.remove();done()}else wrong(row)}}},
+  render(w,st,done){st.append(el('div','task-title','Сөзді буынға бөл ✂️<br><small>Буын қай әріптен кейін бітсе, сол әріпті бас</small>'));const cuts=syl(w),on=new Set();
+    const row=el('div','sylword');const L=[...w];
+    L.forEach((c,i)=>{const b=el('button','sl'+(SV.includes(c)?' v':''),c.toUpperCase());if(i<L.length-1)b.onclick=()=>{const k=i+1;on.has(k)?on.delete(k):on.add(k);b.classList.toggle('cut',on.has(k));beep('tap');prev()};row.append(b)});
+    const pv=el('div','sylprev');const prev=()=>{let o='',p=0;[...on].sort((a,b)=>a-b).concat(L.length).forEach(k=>{o+=`<span>${L.slice(p,k).join('').toUpperCase()}</span>`;p=k});pv.innerHTML=o};
+    st.append(row,pv);prev();const ok=el('button','bigbtn green','ТЕКСЕРУ ✅');st.append(ok,el('div','howto',`Дауысты дыбыс (қызыл) саны = буын саны. Бұл сөзде ${cuts.length+1} буын`));
+    ok.onclick=()=>{if(on.size===cuts.length&&cuts.every(c=>on.has(c))){ok.remove();pv.classList.add('right');done()}else wrong(row)}}},
 { id:'caps', grade:2, title:'Бас әріп', icon:'🔠', bg:'#fff59d', sub:'Бас әріппен жазылатын сөзді тап',
   make:()=>pick(CAPS,T10),
   render(s,st,done){st.append(el('div','task-title','Қай сөз бас әріппен жазылуы керек? Басып таңда'));const box=el('div','sent');let left=(s.match(/\*/g)||[]).length;
@@ -995,13 +1026,13 @@ sortGame({ id:'pos', grade:2, title:'Сөз таптары', icon:'🏷️', bg:
 GAMES.push(...G2);
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id))}
 function drawProgress(){const p=$('#progress');p.innerHTML='';if(S.game.noProgress)return;S.tasks.forEach((_,i)=>p.append(el('i',i<S.i?'done':i===S.i?'cur':'')))}
-function startGame(g){stopConfetti();S.game=g;S.tasks=g.make();S.i=0;$('#gtitle').textContent=g.title;$('#final').classList.remove('show');show('game');renderTask()}
+function startGame(g){stopConfetti();S.game=g;S.err=0;S.tasks=g.make();S.i=0;$('#gtitle').textContent=g.title;$('#final').classList.remove('show');show('game');renderTask()}
 function renderTask(){const my=++token;drawProgress();const st=$('#stage');st.innerHTML='';
   S.game.render(S.tasks[S.i],st,msg=>{if(my!==token)return;token++;
     if(S.game.noProgress)return finish(msg);
     beep('good');flash('Дұрыс! 👍');setTimeout(()=>{if(token!==my+1)return;S.i++;S.i>=S.tasks.length?finish():renderTask()},1300)},
     ()=>my===token)}
-function finish(msg){S.i=S.tasks.length;drawProgress();$('#fmsg').innerHTML=msg||'Барлық тапсырма орындалды!';$('#final').classList.add('show');beep('win');confetti()}
+function finish(msg){S.i=S.tasks.length;drawProgress();$('#fmsg').innerHTML=(msg||'Барлық тапсырма орындалды!')+(S.game&&!S.game.noProgress?`<div class="errline ${S.err?'':'zero'}">${S.tasks.length} тапсырмадан ${S.err?S.err+' рет қателестің':'бірде-бір қате жібермедің! 🏆'}</div>`:'');$('#final').classList.add('show');beep('win');confetti()}
 function restart(){startGame(S.game)}
 function goHome(){token++;stopConfetti();$('#final').classList.remove('show');show('home');if(S.game&&S.game.grade)openGrade(S.game.grade)}
 function toggleFS(){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}
