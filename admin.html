@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="kk" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>neuroUstaz · Басқару</title>
+<style>
+:root{--ink:#1f2a44;--mut:#6b7590;--line:#e3e8f2;--ok:#1b9e6a;--bad:#e53935;--brand:#1565c0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#eef3fb;color:var(--ink);min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:24px;font-weight:900;margin-bottom:4px}
+.mut{color:var(--mut);font-size:15px}
+.card{background:#fff;border-radius:18px;padding:16px;margin-top:14px;box-shadow:0 4px 14px #1f2a4412}
+button{font:inherit;border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer}
+.b1{background:var(--brand);color:#fff}.b2{background:var(--ok);color:#fff}.b3{background:#fdecea;color:var(--bad)}.b4{background:#f1f3f8;color:var(--ink)}
+button:disabled{opacity:.5}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.code{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border:2px solid var(--line);border-radius:14px;margin-top:8px;cursor:pointer;background:#fff;width:100%;text-align:left}
+.code:hover{border-color:#9db8e8}
+.tag{font-size:13px;font-weight:900;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.t-ok{background:#e3f7ee;color:var(--ok)}.t-bad{background:#fdecea;color:var(--bad)}.t-w{background:#fff4d6;color:#a06a00}
+.dev{display:flex;gap:12px;align-items:flex-start;padding:12px;border:2px solid var(--line);border-radius:14px;margin-top:8px}
+.dev input{width:24px;height:24px;margin-top:2px;flex:none}
+.dev b{font-size:17px}
+.dev .ds{font-size:14px;color:var(--mut);margin-top:2px;word-break:break-word}
+.msg{margin-top:12px;font-weight:800}
+.msg.e{color:var(--bad)}.msg.o{color:var(--ok)}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<div class="wrap">
+ <h1>🧠 neuroUstaz · Басқару</h1>
+ <div class="mut">Кодтар мен құрылғыларға рұқсат беру</div>
+ <div class="card" id="auth"></div>
+ <div id="main"></div>
+</div>
+<script>
+const LIMIT=3;
+firebase.initializeApp({apiKey:'AIzaSyBGOkJasSxBZKBVi9FOOAsVK146Itsv_5Y',authDomain:'neuroustaz-324dd.firebaseapp.com',projectId:'neuroustaz-324dd'});
+const auth=firebase.auth(),db=firebase.firestore();
+const $=s=>document.querySelector(s);
+const esc=t=>String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const Q=new URLSearchParams(location.search).get('c');
+function authBox(u){const a=$('#auth');
+ if(!u){a.innerHTML='<div style="margin-bottom:10px;font-weight:800">Кіру үшін Google аккаунтыңызды таңдаңыз</div><button class="b1" id="li">🔐 Google арқылы кіру</button><div class="msg e" id="am"></div>';
+  $('#li').onclick=()=>auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e=>{$('#am').textContent='Кіру сәтсіз: '+(e.code||e.message)});$('#main').innerHTML='';return}
+ a.innerHTML=`<div class="row" style="justify-content:space-between"><div>✅ <b>${esc(u.email)}</b></div><button class="b4" id="lo">Шығу</button></div>`;$('#lo').onclick=()=>auth.signOut()}
+async function list(){const m=$('#main');m.innerHTML='<div class="card" id="lst"><b>Барлық кодтар</b><div class="mut" style="margin-top:4px">Жүктелуде…</div></div>';
+ try{const qs=await db.collection('devices').get();const L=$('#lst');L.innerHTML='<b>Барлық кодтар</b>';
+  const docs=qs.docs.sort((x,y)=>(y.data().b?1:0)-(x.data().b?1:0));if(!docs.length)L.insertAdjacentHTML('beforeend','<div class="mut" style="margin-top:6px">Әзірге жазба жоқ</div>');
+  docs.forEach(d=>{const v=d.data();const c=document.createElement('button');c.className='code';
+   c.innerHTML=`<div><b>${esc(d.id)}</b><div class="mut">${esc(v.n)} · ${(v.fps||[]).length} құрылғы${(v.w||[]).length?' · '+v.w.length+' күтуде':''}</div></div><span class="tag ${v.b?'t-bad':'t-ok'}">${v.b?'⛔ Бұғатталған':'✅ Ашық'}</span>`;
+   c.onclick=()=>open(d.id);L.append(c)})}catch(e){$('#lst').insertAdjacentHTML('beforeend',`<div class="msg e">Оқу қатесі: ${esc(e.message)}</div>`)}}
+async function open(id){history.replaceState(null,'','?c='+encodeURIComponent(id));const m=$('#main');m.innerHTML='<div class="card">Жүктелуде…</div>';
+ const ref=db.collection('devices').doc(id);let v;try{const s=await ref.get();v=s.exists?s.data():null}catch(e){m.innerHTML=`<div class="card msg e">Оқу қатесі: ${esc(e.message)}</div>`;return}
+ if(!v){m.innerHTML=`<div class="card">«${esc(id)}» коды бойынша жазба жоқ.</div><div class="card"><button class="b4" id="bk">⬅ Барлық кодтар</button></div>`;$('#bk').onclick=()=>{history.replaceState(null,'',location.pathname);list()};return}
+ const fps=v.fps||[],w=(v.w||[]).filter(x=>!fps.includes(x)),no=(v.no||[]).filter(x=>!fps.includes(x)&&!w.includes(x)),d=v.d||{};
+ m.innerHTML=`<div class="card"><div class="row" style="justify-content:space-between"><div><div style="font-size:20px;font-weight:900">${esc(id)}</div><div class="mut">${esc(v.n)}${v.t?' · соңғы: '+esc(v.t):''}</div></div>
+  <span class="tag ${v.b?'t-bad':'t-ok'}">${v.b?'⛔ Бұғатталған':'✅ Ашық'}</span></div>
+  <div style="margin-top:14px;font-weight:800">Рұқсат беретін құрылғыларды белгілеңіз <span class="mut">(ұсынылады: ${LIMIT}-ке дейін)</span></div><div id="dl"></div>
+  <div class="mut" id="cnt" style="margin-top:8px"></div><div class="mut" style="margin-top:4px;font-size:13px">Белгіленбеген құрылғыларға тыйым салынады (олар кірсе, код бұғатталмайды, тек сол құрылғы кірмейді). Бос орын қалса, жаңа құрылғы сол орынға өзі қосылады.</div>
+  <div class="row" style="margin-top:14px"><button class="b2" id="ok">✅ Рұқсат беру</button><button class="b3" id="bl">⛔ Кодты бұғаттау</button></div><div class="msg" id="ms"></div></div>
+  <div class="card"><button class="b4" id="bk">⬅ Барлық кодтар</button></div>`;
+ const dl=$('#dl');[...fps.map(x=>[x,'reg']),...w.map(x=>[x,'wait']),...no.map(x=>[x,'no'])].forEach(([x,k])=>{const r=document.createElement('label');r.className='dev';
+  r.innerHTML=`<input type="checkbox" value="${esc(x)}" ${k==='reg'?'checked':''}><div><b>${esc(x)}</b> <span class="tag ${k==='reg'?'t-ok':k==='wait'?'t-w':'t-bad'}">${k==='reg'?'тіркелген':k==='wait'?'жаңа · күтуде':'тыйым салынған'}</span><div class="ds">${esc(d[x]||'сипаттама жоқ')}</div></div>`;dl.append(r)});
+ if(!fps.length&&!w.length&&!no.length)dl.innerHTML='<div class="mut" style="margin-top:6px">Құрылғы жоқ</div>';
+ const upd=()=>{const n=dl.querySelectorAll('input:checked').length;$('#cnt').innerHTML=`Таңдалды: <b>${n}</b>`+(n>LIMIT?` · ⚠️ ${LIMIT}-тен көп`:'')};dl.onchange=upd;upd();
+ const say=(t,ok)=>{const s=$('#ms');s.textContent=t;s.className='msg '+(ok?'o':'e')};
+ const save=async o=>{try{await ref.update(o);say('Сақталды ✓',1);setTimeout(()=>open(id),700)}catch(e){say(e.code==='permission-denied'?'Рұқсат жоқ: Firebase Rules-та сіздің поштаңыз көрсетілмеген.':'Қате: '+e.message)}};
+ $('#ok').onclick=()=>{const all=[...dl.querySelectorAll('input')];const sel=all.filter(x=>x.checked).map(x=>x.value),den=all.filter(x=>!x.checked).map(x=>x.value);save({fps:sel,w:[],no:den,b:false,d,t:new Date().toLocaleString('ru-RU')})};
+ $('#bl').onclick=()=>{if(confirm('Кодты барлық құрылғыда бұғаттау керек пе?'))save({b:true})};
+ $('#bk').onclick=()=>{history.replaceState(null,'',location.pathname);list()}}
+auth.onAuthStateChanged(u=>{authBox(u);if(u){Q?open(Q):list()}});
+</script>
+</body>
+</html>

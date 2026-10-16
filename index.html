@@ -420,32 +420,43 @@ const NOW=()=>{const d=new Date(),z=n=>String(n).padStart(2,'0');return `${z(d.g
 /* Firebase (Firestore REST) + Telegram: кодты 3-тен көп құрылғы ашса, хабар */
 const FB='https://firestore.googleapis.com/v1/projects/neuroustaz-324dd/databases/(default)/documents/devices/',FBK='AIzaSyBGOkJasSxBZKBVi9FOOAsVK146Itsv_5Y';
 const TG='8631088711:AAHaScVUDSTCl5NIZkuVGXnUM6qtlAWJCyE',TGID='1795185899',LIMIT=3;
-/* құрылғы шегі: 3 құрылғыдан артық кіру бұғатталады (иесі Firebase-те рұқсат бере алады: fps тізіміне із қосу немесе max санын өзгерту) */
-async function devWatch(code,name,fp,line,nolim){try{
-  const r=await fetch(FB+encodeURIComponent(code)+'?key='+FBK);let fps=[],max=LIMIT;
-  if(r.ok){const d=await r.json();const F=d.fields||{};fps=((F.fps&&F.fps.arrayValue&&F.fps.arrayValue.values)||[]).map(v=>v.stringValue);if(F.max&&F.max.integerValue!=null)max=+F.max.integerValue}
-  else if(r.status!==404)return 'ok';
-  if(fps.includes(fp))return 'ok';
-  if(nolim||fps.length<max){fps.push(fp);
-   await fetch(FB+encodeURIComponent(code)+'?key='+FBK+'&updateMask.fieldPaths=fps&updateMask.fieldPaths=n&updateMask.fieldPaths=t',{method:'PATCH',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({fields:{fps:{arrayValue:{values:fps.map(x=>({stringValue:x}))}},n:{stringValue:name},t:{stringValue:NOW()}}})});return 'ok'}
-  const key='tgb_'+code+'_'+fp+'_'+new Date().toDateString();let sent=null;try{sent=localStorage.getItem(key)}catch(e){}
-  if(!sent){try{localStorage.setItem(key,1)}catch(e){}
-   const txt=`⛔ ${code} · ${name}\nЖаңа құрылғыдан кіру БҰҒАТТАЛДЫ (рұқсат етілгені: ${max})\n\n${line}\n\nТіркелген құрылғылар: ${fps.join(', ')}\n\n✅ Рұқсат беру үшін: Firebase → Firestore → devices → ${code} → fps тізіміне «${fp}» деген жол қос (ескісін өшіріп, орнына қоюға да болады).`;
-   fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent(txt),{mode:'no-cors'})}
+/* құрылғы шегі: 4-ші құрылғы шықса, код БАРЛЫҚ құрылғыда бұғатталады (b=true).
+   Иесі Telegram-дағы «Рұқсат беру» батырмасы → admin.html арқылы құрылғыларды таңдап, қайта ашады. */
+const ADMIN=location.origin+location.pathname.replace(/[^/]*$/,'')+'admin.html';
+const fsArr=F=>((F&&F.arrayValue&&F.arrayValue.values)||[]).map(v=>v.stringValue);
+const fsMap=F=>{const o={};const m=(F&&F.mapValue&&F.mapValue.fields)||{};for(const k in m)o[k]=m[k].stringValue;return o};
+async function fsGet(code){const r=await fetch(FB+encodeURIComponent(code)+'?key='+FBK);if(r.status===404)return {fps:[],b:false,w:[],d:{},n:'',no:[]};if(!r.ok)throw 0;const F=(await r.json()).fields||{};
+ return {fps:fsArr(F.fps),b:!!(F.b&&F.b.booleanValue),w:fsArr(F.w),d:fsMap(F.d),n:F.n?F.n.stringValue:'',no:fsArr(F.no)}}
+async function fsPut(code,o){const A=x=>({arrayValue:{values:x.map(v=>({stringValue:v}))}});const M=x=>({mapValue:{fields:Object.fromEntries(Object.entries(x).map(([k,v])=>[k,{stringValue:v}]))}});
+ return fetch(FB+encodeURIComponent(code)+'?key='+FBK+['fps','n','t','b','w','d','no'].map(f=>'&updateMask.fieldPaths='+f).join(''),{method:'PATCH',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({fields:{fps:A(o.fps),n:{stringValue:o.n},t:{stringValue:NOW()},b:{booleanValue:!!o.b},w:A(o.w),d:M(o.d),no:A(o.no||[])}})})}
+function tgSend(txt,code){const kb={inline_keyboard:[[{text:'✅ Рұқсат беру / құрылғы таңдау',url:ADMIN+'?c='+encodeURIComponent(code)}]]};
+ fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent(txt)+'&reply_markup='+encodeURIComponent(JSON.stringify(kb)),{mode:'no-cors'})}
+async function devWatch(code,name,fp,line,desc,nolim){try{const D=await fsGet(code);
+  if(D.no.includes(fp))return 'denied';
+  if(D.b){if(!D.fps.includes(fp)&&!D.w.includes(fp)){D.w.push(fp);D.d[fp]=desc;await fsPut(code,{...D,n:name})}return 'blocked'}
+  if(D.fps.includes(fp))return 'ok';
+  if(nolim||D.fps.length<LIMIT){D.fps.push(fp);D.d[fp]=desc;await fsPut(code,{...D,n:name});return 'ok'}
+  D.b=true;D.w=[fp];D.d[fp]=desc;await fsPut(code,{...D,n:name});
+  tgSend(`⛔ ${code} · ${name}\nКод ${LIMIT+1}-ші құрылғыдан ашылды — код БАРЛЫҚ құрылғыда бұғатталды!\n\nЖаңа құрылғы:\n${line}\n\nТіркелген құрылғылар:\n${D.fps.map(x=>'• '+x+' — '+(D.d[x]||'')).join('\n')}\n\nТөмендегі батырманы басып, қай құрылғыларға рұқсат беретініңізді таңдаңыз 👇`,code);
   return 'blocked';
 }catch(e){return 'ok'}}
+function blockedMsg(fp){er.innerHTML=`⛔ Бұл код уақытша бұғатталды:<br>рұқсат етілгеннен көп құрылғыдан кірілді.<br>Рұқсат алу үшін хабарласыңыз: <b>${PHONE}</b><br><small style="color:#888">Құрылғы ізі: ${fp||''}</small>`}
 const gcEv=(path,title,n=0)=>{try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path,title,event:true});return}}catch(e){}if(n<20)setTimeout(()=>gcEv(path,title,n+1),500)};
 const sha=async s=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('class2:'+s.trim().toUpperCase()));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
 const g=document.getElementById('gate'),inp=document.getElementById('gc'),er=document.getElementById('ge');
 const valid=h=>{const c=C[h];if(!c)return 0;if(c.u&&new Date()>new Date(c.u+'T23:59:59'))return -1;return 1};
 const fmt=d=>d.split('-').reverse().join('.');
+let CUR=null;
 function enter(h,how){const c=C[h];const when=NOW();er.textContent='⏳ Тексерілуде…';
- Promise.all([FP,MODEL,NET]).then(async([fp,md,ip])=>{window.__fp=fp;const dev=(md?(md.startsWith(DEVNAME)?md:DEVNAME+' '+md):DEVNAME);
-  const res=await Promise.race([devWatch('2class-'+(c.k||'?'),c.n,fp,'🕐 '+when+'\n📱 '+dev+' · '+screen.width+'×'+screen.height+' · із '+fp+'\n🌐 '+ip,!!c.x),new Promise(r=>setTimeout(()=>r('ok'),7000))]);
-  gcEv('2class-kod-'+(c.k||'?')+' | '+when+' | '+(res==='blocked'?'БҰҒАТТАЛДЫ':(how||'ашылды'))+' | із '+fp+' | '+dev+' · '+screen.width+'×'+screen.height+' · '+GPU+' | '+ip,c.n+(res==='blocked'?' – жаңа құрылғы бұғатталды':how==='кірді'?' – кодпен кірді':' – сайтты ашты')+' · құрылғы '+DEV);
-  if(res==='blocked'){try{localStorage.removeItem('c2_ok')}catch(e){}g.style.display='';er.innerHTML=`⛔ Бұл код рұқсат етілген құрылғылар санынан асты.<br>Осы құрылғыдан кіру үшін рұқсат алыңыз: <b>${PHONE}</b><br><small style="color:#888">Құрылғы ізі: ${fp}</small>`;return}
-  er.textContent='';g.style.display='none';const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)})}
+ Promise.all([FP,MODEL,NET]).then(async([fp,md,ip])=>{window.__fp=fp;const dev=(md?(md.startsWith(DEVNAME)?md:DEVNAME+' '+md):DEVNAME);const code='2class-'+(c.k||'?');
+  const res=await Promise.race([devWatch(code,c.n,fp,'🕐 '+when+'\n📱 '+dev+' · '+screen.width+'×'+screen.height+' · із '+fp+'\n🌐 '+ip,dev+' · '+screen.width+'×'+screen.height+' · '+ip+' · '+when,!!c.x),new Promise(r=>setTimeout(()=>r('ok'),7000))]);
+  gcEv('2class-kod-'+(c.k||'?')+' | '+when+' | '+(res==='blocked'?'БҰҒАТТАЛДЫ':res==='denied'?'ТЫЙЫМ':(how||'ашылды'))+' | із '+fp+' | '+dev+' · '+screen.width+'×'+screen.height+' · '+GPU+' | '+ip,c.n+(res==='blocked'?' – бұғатталған':res==='denied'?' – рұқсатсыз құрылғы':how==='кірді'?' – кодпен кірді':' – сайтты ашты')+' · құрылғы '+DEV);
+  if(res==='blocked'){g.style.display='';blockedMsg(fp);return}
+  if(res==='denied'){g.style.display='';er.innerHTML=`⛔ Бұл құрылғыға рұқсат жоқ.<br>Рұқсат алу үшін хабарласыңыз: <b>${PHONE}</b><br><small style="color:#888">Құрылғы ізі: ${fp}</small>`;return}
+  CUR={code,fp,x:!!c.x};er.textContent='';g.style.display='none';const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)})}
+/* ашық тұрған құрылғыларды да тексеру: код бұғатталса немесе құрылғы тізімнен алынса — жабылады */
+setInterval(async()=>{if(!CUR||CUR.x||g.style.display!=='none')return;try{const D=await fsGet(CUR.code);if(D.b||D.no.includes(CUR.fp)){g.style.display='';const l=document.getElementById('lic');l&&l.remove();blockedMsg(CUR.fp);CUR=null}}catch(e){}},45000);
 function expired(){gcEv('mezgil-bitti','Мерзімі біткен кодпен кіру әрекеті');er.innerHTML=`Кодтың мерзімі бітті.<br>Ұзарту үшін хабарласыңыз: <b>${PHONE}</b>`;try{localStorage.removeItem('c2_ok')}catch(e){}}
 async function tryC(c){const h=await sha(c);const v=valid(h);if(v===1){try{localStorage.setItem('c2_ok',h)}catch(e){}return enter(h,'кірді')}if(v===-1)return expired();er.textContent='Код қате. Қайта тексеріңіз.'}
 document.getElementById('gf').onsubmit=e=>{e.preventDefault();if(inp.value.trim())tryC(inp.value)};
