@@ -364,7 +364,7 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 <input id="gc" autocomplete="off" spellcheck="false" placeholder="КОД"><button class="tbtn gbtn">Кіру ➜</button><div class="gerr" id="ge"></div></form></div>
 <script>
 (function(){/* код → иесі, мерзімі (сол күннің соңына дейін) */
-const C={'e9a5c132c2ec5808ff4cef7cbe3dffb7e75b2cf32f361e27481e2f4f9c118d8c':{n:'Жеделбаев Данияр',u:'',k:'468205'},'3235c01bd08d6276992118b47a2d084f04cc8e7e5f3aba0f6d6209f60d675d9e':{n:'Жанель Бақытжанқызы',u:'',k:'731482'},'b2f846056c4fc7548c6adf5f396edba69d1b7672013546f81748cee0635cccf7':{n:'neuroUstaz',u:'',k:'854569'},'c799081f08b128aa00b1dca299d8cb3f6268fc2b5ac0e05144641ac5e2d2a682':{n:'neuroUstaz',u:'',k:'250390'}};
+const C={'e9a5c132c2ec5808ff4cef7cbe3dffb7e75b2cf32f361e27481e2f4f9c118d8c':{n:'Жеделбаев Данияр',u:'',k:'468205'},'3235c01bd08d6276992118b47a2d084f04cc8e7e5f3aba0f6d6209f60d675d9e':{n:'Жанель Бақытжанқызы',u:'',k:'731482'},'b2f846056c4fc7548c6adf5f396edba69d1b7672013546f81748cee0635cccf7':{n:'neuroUstaz',u:'',k:'854569',x:1},'c799081f08b128aa00b1dca299d8cb3f6268fc2b5ac0e05144641ac5e2d2a682':{n:'neuroUstaz',u:'',k:'250390',x:1}};
 const PHONE='8 747 109 16 00';
 const DEV=(()=>{let d=null;try{d=localStorage.getItem('dev_id')}catch(e){}if(!d){d=Math.random().toString(36).slice(2,6).toUpperCase();try{localStorage.setItem('dev_id',d)}catch(e){}}return d})();
 const DEVNAME=(()=>{const u=navigator.userAgent,tp=navigator.maxTouchPoints||0,W=Math.max(screen.width,screen.height);
@@ -402,22 +402,32 @@ const NOW=()=>{const d=new Date(),z=n=>String(n).padStart(2,'0');return `${z(d.g
 /* Firebase (Firestore REST) + Telegram: кодты 3-тен көп құрылғы ашса, хабар */
 const FB='https://firestore.googleapis.com/v1/projects/neuroustaz-324dd/databases/(default)/documents/devices/',FBK='AIzaSyBGOkJasSxBZKBVi9FOOAsVK146Itsv_5Y';
 const TG='8631088711:AAHaScVUDSTCl5NIZkuVGXnUM6qtlAWJCyE',TGID='1795185899',LIMIT=3;
-async function devWatch(code,name,fp,line){try{
-  const r=await fetch(FB+encodeURIComponent(code)+'?key='+FBK);let fps=[];
-  if(r.ok){const d=await r.json();fps=((d.fields&&d.fields.fps&&d.fields.fps.arrayValue&&d.fields.fps.arrayValue.values)||[]).map(v=>v.stringValue)}
-  if(fps.includes(fp))return;fps.push(fp);
-  await fetch(FB+encodeURIComponent(code)+'?key='+FBK+'&updateMask.fieldPaths=fps&updateMask.fieldPaths=n&updateMask.fieldPaths=t',{method:'PATCH',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({fields:{fps:{arrayValue:{values:fps.map(x=>({stringValue:x}))}},n:{stringValue:name},t:{stringValue:NOW()}}})});
-  if(fps.length>LIMIT){const txt=`⚠️ ${code} · ${name}\nКод ${fps.length}-ші құрылғыдан ашылды!\n\n${line}\n\nБарлық құрылғы: ${fps.join(', ')}`;
-    fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent(txt),{mode:'no-cors'})}
-}catch(e){}}
+/* құрылғы шегі: 3 құрылғыдан артық кіру бұғатталады (иесі Firebase-те рұқсат бере алады: fps тізіміне із қосу немесе max санын өзгерту) */
+async function devWatch(code,name,fp,line,nolim){try{
+  const r=await fetch(FB+encodeURIComponent(code)+'?key='+FBK);let fps=[],max=LIMIT;
+  if(r.ok){const d=await r.json();const F=d.fields||{};fps=((F.fps&&F.fps.arrayValue&&F.fps.arrayValue.values)||[]).map(v=>v.stringValue);if(F.max&&F.max.integerValue!=null)max=+F.max.integerValue}
+  else if(r.status!==404)return 'ok';
+  if(fps.includes(fp))return 'ok';
+  if(nolim||fps.length<max){fps.push(fp);
+   await fetch(FB+encodeURIComponent(code)+'?key='+FBK+'&updateMask.fieldPaths=fps&updateMask.fieldPaths=n&updateMask.fieldPaths=t',{method:'PATCH',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({fields:{fps:{arrayValue:{values:fps.map(x=>({stringValue:x}))}},n:{stringValue:name},t:{stringValue:NOW()}}})});return 'ok'}
+  const key='tgb_'+code+'_'+fp+'_'+new Date().toDateString();let sent=null;try{sent=localStorage.getItem(key)}catch(e){}
+  if(!sent){try{localStorage.setItem(key,1)}catch(e){}
+   const txt=`⛔ ${code} · ${name}\nЖаңа құрылғыдан кіру БҰҒАТТАЛДЫ (рұқсат етілгені: ${max})\n\n${line}\n\nТіркелген құрылғылар: ${fps.join(', ')}\n\n✅ Рұқсат беру үшін: Firebase → Firestore → devices → ${code} → fps тізіміне «${fp}» деген жол қос (ескісін өшіріп, орнына қоюға да болады).`;
+   fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent(txt),{mode:'no-cors'})}
+  return 'blocked';
+}catch(e){return 'ok'}}
 const gcEv=(path,title,n=0)=>{try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path,title,event:true});return}}catch(e){}if(n<20)setTimeout(()=>gcEv(path,title,n+1),500)};
 const sha=async s=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('class2:'+s.trim().toUpperCase()));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
 const g=document.getElementById('gate'),inp=document.getElementById('gc'),er=document.getElementById('ge');
 const valid=h=>{const c=C[h];if(!c)return 0;if(c.u&&new Date()>new Date(c.u+'T23:59:59'))return -1;return 1};
 const fmt=d=>d.split('-').reverse().join('.');
-function enter(h,how){const c=C[h];g.style.display='none';const when=NOW();Promise.all([FP,MODEL,NET]).then(([fp,md,ip])=>{window.__fp=fp;devWatch('2class-'+(c.k||'?'),c.n,fp,'🕐 '+when+'\n📱 '+(md?(md.startsWith(DEVNAME)?md:DEVNAME+' '+md):DEVNAME)+' · '+screen.width+'×'+screen.height+' · із '+fp+'\n🌐 '+ip);gcEv('2class-kod-'+(c.k||'?')+' | '+when+' | '+(how||'ашылды')+' | із '+fp+' | '+(md?(md.startsWith(DEVNAME)?md:DEVNAME+' '+md):DEVNAME)+' · '+screen.width+'×'+screen.height+' · '+GPU+' | '+ip,c.n+(how==='кірді'?' – кодпен кірді':' – сайтты ашты')+' · құрылғы '+DEV)});
-  const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)}
+function enter(h,how){const c=C[h];const when=NOW();er.textContent='⏳ Тексерілуде…';
+ Promise.all([FP,MODEL,NET]).then(async([fp,md,ip])=>{window.__fp=fp;const dev=(md?(md.startsWith(DEVNAME)?md:DEVNAME+' '+md):DEVNAME);
+  const res=await Promise.race([devWatch('2class-'+(c.k||'?'),c.n,fp,'🕐 '+when+'\n📱 '+dev+' · '+screen.width+'×'+screen.height+' · із '+fp+'\n🌐 '+ip,!!c.x),new Promise(r=>setTimeout(()=>r('ok'),7000))]);
+  gcEv('2class-kod-'+(c.k||'?')+' | '+when+' | '+(res==='blocked'?'БҰҒАТТАЛДЫ':(how||'ашылды'))+' | із '+fp+' | '+dev+' · '+screen.width+'×'+screen.height+' · '+GPU+' | '+ip,c.n+(res==='blocked'?' – жаңа құрылғы бұғатталды':how==='кірді'?' – кодпен кірді':' – сайтты ашты')+' · құрылғы '+DEV);
+  if(res==='blocked'){try{localStorage.removeItem('c2_ok')}catch(e){}g.style.display='';er.innerHTML=`⛔ Бұл код рұқсат етілген құрылғылар санынан асты.<br>Осы құрылғыдан кіру үшін рұқсат алыңыз: <b>${PHONE}</b><br><small style="color:#888">Құрылғы ізі: ${fp}</small>`;return}
+  er.textContent='';g.style.display='none';const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)})}
 function expired(){gcEv('mezgil-bitti','Мерзімі біткен кодпен кіру әрекеті');er.innerHTML=`Кодтың мерзімі бітті.<br>Ұзарту үшін хабарласыңыз: <b>${PHONE}</b>`;try{localStorage.removeItem('c2_ok')}catch(e){}}
 async function tryC(c){const h=await sha(c);const v=valid(h);if(v===1){try{localStorage.setItem('c2_ok',h)}catch(e){}return enter(h,'кірді')}if(v===-1)return expired();er.textContent='Код қате. Қайта тексеріңіз.'}
 document.getElementById('gf').onsubmit=e=>{e.preventDefault();if(inp.value.trim())tryC(inp.value)};
