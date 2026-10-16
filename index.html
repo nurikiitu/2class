@@ -268,6 +268,8 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
  .webox{padding:18px}.webox h3{font-size:26px}.webox p{font-size:15px}.webox textarea{font-size:22px;height:200px}
 }
 #gate{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(160deg,#29a3f5,#1565c0)}
+#lic{position:fixed;right:10px;bottom:8px;z-index:90;background:rgba(0,0,0,.45);color:#fff;font:800 13px Nunito,sans-serif;padding:4px 12px;border-radius:12px;pointer-events:none}#lic b{font-weight:900}
+@media print{body{display:none}}
 .gbox{background:#fff;border-radius:32px;padding:34px 40px;width:min(500px,100%);text-align:center;box-shadow:0 12px 0 rgba(0,0,0,.18)}
 .gbox h2{font-size:clamp(28px,5vw,40px);font-weight:900;color:#1565c0}.gbox p{font-weight:800;opacity:.7;margin:4px 0 18px}
 .gbox input{width:100%;font:900 28px Nunito,sans-serif;text-align:center;letter-spacing:3px;text-transform:uppercase;padding:14px;border:4px solid #c5d4ee;border-radius:20px;outline:none}
@@ -354,19 +356,78 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 .dfin .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}.dfin .tbtn{background:#1e88e5;color:#fff}
 @media(max-width:700px){.gcard.duelcard{grid-column:span 2}#dgame.active{height:auto;min-height:100vh}.dsides{flex-direction:column}.dside.s1{flex-direction:row}.dq{font-size:18px}.dopt{font-size:16px;min-height:48px}.dtrack{height:100px}}
 </style>
+<script data-goatcounter="https://neuroustaz.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
 <div id="gate"><form class="gbox" id="gf"><div style="font-size:72px">🧠</div><h2>neuroUstaz · 2-сынып</h2><p>Кіру коды</p>
 <input id="gc" autocomplete="off" spellcheck="false" placeholder="КОД"><button class="tbtn gbtn">Кіру ➜</button><div class="gerr" id="ge"></div></form></div>
 <script>
-(function(){const H=['b2f846056c4fc7548c6adf5f396edba69d1b7672013546f81748cee0635cccf7','c799081f08b128aa00b1dca299d8cb3f6268fc2b5ac0e05144641ac5e2d2a682'];
+(function(){/* код → иесі, мерзімі (сол күннің соңына дейін) */
+const C={'3235c01bd08d6276992118b47a2d084f04cc8e7e5f3aba0f6d6209f60d675d9e':{n:'Жанель Бақытжанқызы',u:'2026-11-16',k:'731482'},'b2f846056c4fc7548c6adf5f396edba69d1b7672013546f81748cee0635cccf7':{n:'neuroUstaz',u:'',k:'854569'},'c799081f08b128aa00b1dca299d8cb3f6268fc2b5ac0e05144641ac5e2d2a682':{n:'neuroUstaz',u:'',k:'250390'}};
+const PHONE='8 747 109 16 00';
+const DEV=(()=>{let d=null;try{d=localStorage.getItem('dev_id')}catch(e){}if(!d){d=Math.random().toString(36).slice(2,6).toUpperCase();try{localStorage.setItem('dev_id',d)}catch(e){}}return d})();
+const DEVNAME=(()=>{const u=navigator.userAgent,tp=navigator.maxTouchPoints||0,W=Math.max(screen.width,screen.height);
+  if(/iPhone/i.test(u))return 'iPhone';
+  if(/iPad/i.test(u)||(/Macintosh/i.test(u)&&tp>1))return 'iPad';
+  if(/Macintosh|Mac OS X/i.test(u))return 'MacBook / Mac';
+  if(/Android/i.test(u)){if(/Mobile/i.test(u))return 'Android телефон';return W>=1600?'Интерактивті тақта (Android)':'Android планшет'}
+  if(/Windows/i.test(u))return tp>0&&W>=1600?'Интерактивті тақта (Windows)':tp>0?'Windows сенсорлы':'Windows компьютер';
+  if(/CrOS/i.test(u))return 'Chromebook';
+  if(/Linux/i.test(u))return tp>0&&W>=1600?'Интерактивті тақта (Linux)':'Linux компьютер';
+  return 'Басқа құрылғы'})();
+/* құрылғының «саусақ ізі»: браузер тазаланса да өзгермейді */
+const GPU=(()=>{try{const c=document.createElement('canvas'),g=c.getContext('webgl')||c.getContext('experimental-webgl');const e=g.getExtension('WEBGL_debug_renderer_info');
+  let r=e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):g.getParameter(g.RENDERER);r=String(r).replace(/ANGLE \(|\)|Direct3D.*|vs_\S+|ps_\S+|\(0x[0-9A-F]+\)/gi,'').replace(/,.*$/,'').replace(/\s+/g,' ').trim();return r.slice(0,40)}catch(e){return '?'}})();
+const FP=(async()=>{let cv='';try{const c=document.createElement('canvas');c.width=240;c.height=60;const x=c.getContext('2d');x.textBaseline='top';x.font='16px Arial';x.fillStyle='#f60';x.fillRect(10,10,100,30);x.fillStyle='#069';x.fillText('neuroUstaz Ғ Ә 😊 4455',4,18);x.strokeStyle='rgba(120,30,200,.7)';x.arc(120,30,20,0,6);x.stroke();cv=c.toDataURL()}catch(e){}
+  let fonts='';try{const F=['Arial','Calibri','Cambria','Candara','Comic Sans MS','Consolas','Constantia','Corbel','Courier New','Ebrima','Franklin Gothic Medium','Gabriola','Georgia','Impact','Lucida Console','Malgun Gothic','Microsoft Sans Serif','MS Gothic','Palatino Linotype','Segoe Print','Segoe Script','Segoe UI','SimSun','Sitka Text','Sylfaen','Tahoma','Times New Roman','Trebuchet MS','Verdana','Yu Gothic','Bahnschrift','Leelawadee UI','Nirmala UI','Myanmar Text','Javanese Text','Microsoft Himalaya','Mongolian Baiti','Book Antiqua','Garamond','Century Gothic','Bookman Old Style','Wingdings','PT Sans','Roboto','Ubuntu','Helvetica Neue','Menlo','Monaco','Avenir'];
+    const c=document.createElement('canvas').getContext('2d'),t='mmmmmmmmlliWW@#1Ә';const w=f=>{c.font='72px '+f;return c.measureText(t).width};const base=['monospace','serif','sans-serif'].map(w);
+    fonts=F.filter(f=>['monospace','serif','sans-serif'].some((b,k)=>w(`'${f}',${b}`)!==base[k])).join(',')}catch(e){}
+  /* браузерге тәуелсіз белгілер ғана: бір құрылғыдағы Chrome, Edge, Firefox бірдей із береді */
+  const OS=/Windows/i.test(navigator.userAgent)?'win':/Android/i.test(navigator.userAgent)?'and':/iPhone|iPad/i.test(navigator.userAgent)||(/Mac/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1)?'ios':/Mac/i.test(navigator.userAgent)?'mac':'oth';
+  const raw=[OS,fonts,screen.width+'x'+screen.height,screen.colorDepth,Math.round(devicePixelRatio*100),navigator.hardwareConcurrency,Intl.DateTimeFormat().resolvedOptions().timeZone,navigator.maxTouchPoints>0?1:0].join('|');
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw));return [...new Uint8Array(b)].slice(0,3).map(v=>v.toString(16).padStart(2,'0')).join('').toUpperCase().slice(0,5)})();
+/* телефон моделі */
+const MODEL=(async()=>{const u=navigator.userAgent;try{if(navigator.userAgentData&&navigator.userAgentData.getHighEntropyValues){const v=await navigator.userAgentData.getHighEntropyValues(['model','platformVersion']);if(v.model)return v.model}}catch(e){}
+  const m=u.match(/Android [\d.]+; ([^;)]+?)(?: Build|\))/);if(m&&m[1]!=='K')return m[1].trim();
+  if(/iPhone/.test(u)){const k=Math.min(screen.width,screen.height)+'x'+Math.max(screen.width,screen.height)+'@'+devicePixelRatio;
+    const T={'320x568@2':'iPhone SE (1)','375x667@2':'iPhone 6/7/8/SE','414x736@3':'iPhone 6+/7+/8+','375x812@3':'iPhone X/XS/11 Pro/12 mini/13 mini','414x896@2':'iPhone XR/11','414x896@3':'iPhone XS Max/11 Pro Max',
+      '390x844@3':'iPhone 12/13/14','428x926@3':'iPhone 12/13 Pro Max, 14 Plus','393x852@3':'iPhone 14 Pro/15/15 Pro/16','430x932@3':'iPhone 14 Pro Max/15 Plus/15 Pro Max/16 Plus','402x874@3':'iPhone 16 Pro','440x956@3':'iPhone 16 Pro Max'};return T[k]||'iPhone '+k}
+  return ''})();
+/* IP мекенжайы, қала, провайдер */
+const NET=(async()=>{const tm=ms=>new Promise(r=>setTimeout(()=>r(null),ms));
+  try{const r=await Promise.race([fetch('https://ipwho.is/?lang=ru').then(x=>x.json()),tm(3000)]);if(r&&r.ip)return `IP ${r.ip} (${[r.city,r.connection&&r.connection.isp].filter(Boolean).join(', ')})`}catch(e){}
+  try{const r=await Promise.race([fetch('https://api.ipify.org?format=json').then(x=>x.json()),tm(3000)]);if(r&&r.ip)return 'IP '+r.ip}catch(e){}return 'IP ?'})();
+const NOW=()=>{const d=new Date(),z=n=>String(n).padStart(2,'0');return `${z(d.getDate())}.${z(d.getMonth()+1)}.${d.getFullYear()} ${z(d.getHours())}:${z(d.getMinutes())}:${z(d.getSeconds())}`};
+/* Firebase (Firestore REST) + Telegram: кодты 3-тен көп құрылғы ашса, хабар */
+const FB='https://firestore.googleapis.com/v1/projects/neuroustaz-324dd/databases/(default)/documents/devices/',FBK='AIzaSyBGOkJasSxBZKBVi9FOOAsVK146Itsv_5Y';
+const TG='8631088711:AAHaScVUDSTCl5NIZkuVGXnUM6qtlAWJCyE',TGID='1795185899',LIMIT=3;
+async function devWatch(code,name,fp,line){try{
+  const r=await fetch(FB+encodeURIComponent(code)+'?key='+FBK);let fps=[];
+  if(r.ok){const d=await r.json();fps=((d.fields&&d.fields.fps&&d.fields.fps.arrayValue&&d.fields.fps.arrayValue.values)||[]).map(v=>v.stringValue)}
+  if(fps.includes(fp))return;fps.push(fp);
+  await fetch(FB+encodeURIComponent(code)+'?key='+FBK+'&updateMask.fieldPaths=fps&updateMask.fieldPaths=n&updateMask.fieldPaths=t',{method:'PATCH',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({fields:{fps:{arrayValue:{values:fps.map(x=>({stringValue:x}))}},n:{stringValue:name},t:{stringValue:NOW()}}})});
+  if(fps.length>LIMIT){const txt=`⚠️ ${code} · ${name}\nКод ${fps.length}-ші құрылғыдан ашылды!\n\n${line}\n\nБарлық құрылғы: ${fps.join(', ')}`;
+    fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent(txt),{mode:'no-cors'})}
+}catch(e){}}
+const gcEv=(path,title,n=0)=>{try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path,title,event:true});return}}catch(e){}if(n<20)setTimeout(()=>gcEv(path,title,n+1),500)};
 const sha=async s=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('class2:'+s.trim().toUpperCase()));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
 const g=document.getElementById('gate'),inp=document.getElementById('gc'),er=document.getElementById('ge');
-async function tryC(c){const h=await sha(c);if(H.includes(h)){try{localStorage.setItem('c2_ok',h)}catch(e){}g.style.display='none';return}er.textContent='Код қате. Қайта тексеріңіз.'}
+const valid=h=>{const c=C[h];if(!c)return 0;if(c.u&&new Date()>new Date(c.u+'T23:59:59'))return -1;return 1};
+const fmt=d=>d.split('-').reverse().join('.');
+function enter(h,how){const c=C[h];g.style.display='none';const when=NOW();Promise.all([FP,MODEL,NET]).then(([fp,md,ip])=>{window.__fp=fp;devWatch('2class-'+(c.k||'?'),c.n,fp,'🕐 '+when+'\n📱 '+(md?(md.startsWith(DEVNAME)?md:DEVNAME+' '+md):DEVNAME)+' · '+screen.width+'×'+screen.height+' · із '+fp+'\n🌐 '+ip);gcEv('2class-kod-'+(c.k||'?')+' | '+when+' | '+(how||'ашылды')+' | із '+fp+' | '+(md?(md.startsWith(DEVNAME)?md:DEVNAME+' '+md):DEVNAME)+' · '+screen.width+'×'+screen.height+' · '+GPU+' | '+ip,c.n+(how==='кірді'?' – кодпен кірді':' – сайтты ашты')+' · құрылғы '+DEV)});
+  const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)}
+function expired(){gcEv('mezgil-bitti','Мерзімі біткен кодпен кіру әрекеті');er.innerHTML=`Кодтың мерзімі бітті.<br>Ұзарту үшін хабарласыңыз: <b>${PHONE}</b>`;try{localStorage.removeItem('c2_ok')}catch(e){}}
+async function tryC(c){const h=await sha(c);const v=valid(h);if(v===1){try{localStorage.setItem('c2_ok',h)}catch(e){}return enter(h,'кірді')}if(v===-1)return expired();er.textContent='Код қате. Қайта тексеріңіз.'}
 document.getElementById('gf').onsubmit=e=>{e.preventDefault();if(inp.value.trim())tryC(inp.value)};
-let ok=null;try{ok=localStorage.getItem('c2_ok')}catch(e){}const q=new URLSearchParams(location.search).get('code');
-if(H.includes(ok))g.style.display='none';else if(q)tryC(q);
+let ok=null;try{ok=localStorage.getItem('c2_ok')}catch(e){}
+if(/tgtest/.test(location.search))fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent('✅ neuroUstaz: Telegram хабарламасы жұмыс істеп тұр!'),{mode:'no-cors'});
+if(location.search)history.replaceState(null,'',location.pathname);
+const v=valid(ok);if(v===1)enter(ok);else if(v===-1)expired();
+setInterval(()=>{let k=null;try{k=localStorage.getItem('c2_ok')}catch(e){}if(k&&valid(k)===-1){g.style.display='';const l=document.getElementById('lic');l&&l.remove();expired()}},60000);
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(e.key==='F12'||(e.ctrlKey&&(k==='u'||k==='s'||k==='p'))||(e.ctrlKey&&e.shiftKey&&(k==='i'||k==='j'||k==='c'))){e.preventDefault()}});
 window.logout1=()=>{try{localStorage.removeItem('c2_ok')}catch(e){}location.href=location.pathname};})();
 </script>
 <section id="home" class="screen active">
