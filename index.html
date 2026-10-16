@@ -360,12 +360,14 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 <input id="gc" autocomplete="off" spellcheck="false" placeholder="КОД"><button class="tbtn gbtn">Кіру ➜</button><div class="gerr" id="ge"></div></form></div>
 <script>
 (function(){const H=['b2f846056c4fc7548c6adf5f396edba69d1b7672013546f81748cee0635cccf7','c799081f08b128aa00b1dca299d8cb3f6268fc2b5ac0e05144641ac5e2d2a682'];
+const TMP={'9a91b9c6c1c3b9c5fe02d89ffef08bd59829c893549d4fae725857fcdccbe2a1':1792135392728};/* уақытша код: мерзімі біткенде жарамсыз */for(const k in TMP)if(Date.now()<TMP[k])H.push(k);
 const sha=async s=>{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('class2:'+s.trim().toUpperCase()));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')};
 const g=document.getElementById('gate'),inp=document.getElementById('gc'),er=document.getElementById('ge');
 async function tryC(c){const h=await sha(c);if(H.includes(h)){try{localStorage.setItem('c2_ok',h)}catch(e){}g.style.display='none';return}er.textContent='Код қате. Қайта тексеріңіз.'}
 document.getElementById('gf').onsubmit=e=>{e.preventDefault();if(inp.value.trim())tryC(inp.value)};
 let ok=null;try{ok=localStorage.getItem('c2_ok')}catch(e){}const q=new URLSearchParams(location.search).get('code');
 if(H.includes(ok))g.style.display='none';else if(q)tryC(q);
+setInterval(()=>{let o=null;try{o=localStorage.getItem('c2_ok')}catch(e){}if(TMP[o]&&Date.now()>=TMP[o]){try{localStorage.removeItem('c2_ok')}catch(e){}location.reload()}},20000);
 window.logout1=()=>{try{localStorage.removeItem('c2_ok')}catch(e){}location.href=location.pathname};})();
 </script>
 <section id="home" class="screen active">
