@@ -420,25 +420,22 @@ const NOW=()=>{const d=new Date(),z=n=>String(n).padStart(2,'0');return `${z(d.g
 /* Firebase (Firestore REST) + Telegram: кодты 3-тен көп құрылғы ашса, хабар */
 const FB='https://firestore.googleapis.com/v1/projects/neuroustaz-324dd/databases/(default)/documents/devices/',FBK='AIzaSyBGOkJasSxBZKBVi9FOOAsVK146Itsv_5Y';
 const TG='8631088711:AAHaScVUDSTCl5NIZkuVGXnUM6qtlAWJCyE',TGID='1795185899',LIMIT=3;
-/* құрылғы шегі: 4-ші құрылғы шықса, код БАРЛЫҚ құрылғыда бұғатталады (b=true).
-   Иесі Telegram-дағы «Рұқсат беру» батырмасы → admin.html арқылы құрылғыларды таңдап, қайта ашады. */
-const ADMIN=location.origin+location.pathname.replace(/[^/]*$/,'')+'admin.html';
-const fsArr=F=>((F&&F.arrayValue&&F.arrayValue.values)||[]).map(v=>v.stringValue);
-const fsMap=F=>{const o={};const m=(F&&F.mapValue&&F.mapValue.fields)||{};for(const k in m)o[k]=m[k].stringValue;return o};
-async function fsGet(code){const r=await fetch(FB+encodeURIComponent(code)+'?key='+FBK);if(r.status===404)return {fps:[],b:false,w:[],d:{},n:'',no:[]};if(!r.ok)throw 0;const F=(await r.json()).fields||{};
- return {fps:fsArr(F.fps),b:!!(F.b&&F.b.booleanValue),w:fsArr(F.w),d:fsMap(F.d),n:F.n?F.n.stringValue:'',no:fsArr(F.no)}}
-async function fsPut(code,o){const A=x=>({arrayValue:{values:x.map(v=>({stringValue:v}))}});const M=x=>({mapValue:{fields:Object.fromEntries(Object.entries(x).map(([k,v])=>[k,{stringValue:v}]))}});
- return fetch(FB+encodeURIComponent(code)+'?key='+FBK+['fps','n','t','b','w','d','no'].map(f=>'&updateMask.fieldPaths='+f).join(''),{method:'PATCH',headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({fields:{fps:A(o.fps),n:{stringValue:o.n},t:{stringValue:NOW()},b:{booleanValue:!!o.b},w:A(o.w),d:M(o.d),no:A(o.no||[])}})})}
-function tgSend(txt,code){const kb={inline_keyboard:[[{text:'✅ Рұқсат беру / құрылғы таңдау',url:ADMIN+'?c='+encodeURIComponent(code)}]]};
+/* құрылғы шегі: 4-ші құрылғы шықса, код БАРЛЫҚ құрылғыда бұғатталады.
+   Бұғат белгісі – fps тізіміндегі «⛔» жолы. Иесі Firebase → Firestore → devices → <код> → fps ішінен «⛔» жолын өшірсе, код қайта ашылады. */
+const BLK='⛔';
+const CONSOLE=c=>'https://console.firebase.google.com/project/neuroustaz-324dd/firestore/databases/-default-/data/~2Fdevices~2F'+encodeURIComponent(c);
+async function fsGet(code){const r=await fetch(FB+encodeURIComponent(code)+'?key='+FBK);if(r.status===404)return [];if(!r.ok)throw 0;const F=(await r.json()).fields||{};
+ return ((F.fps&&F.fps.arrayValue&&F.fps.arrayValue.values)||[]).map(v=>v.stringValue)}
+async function fsPut(code,fps,name){return fetch(FB+encodeURIComponent(code)+'?key='+FBK+'&updateMask.fieldPaths=fps&updateMask.fieldPaths=n&updateMask.fieldPaths=t',{method:'PATCH',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({fields:{fps:{arrayValue:{values:fps.map(x=>({stringValue:x}))}},n:{stringValue:name},t:{stringValue:NOW()}}})})}
+function tgSend(txt,code){const kb={inline_keyboard:[[{text:'🔓 Firebase-те ашу (рұқсат беру)',url:CONSOLE(code)}]]};
  fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent(txt)+'&reply_markup='+encodeURIComponent(JSON.stringify(kb)),{mode:'no-cors'})}
-async function devWatch(code,name,fp,line,desc,nolim){try{const D=await fsGet(code);
-  if(D.no.includes(fp))return 'denied';
-  if(D.b){if(!D.fps.includes(fp)&&!D.w.includes(fp)){D.w.push(fp);D.d[fp]=desc;await fsPut(code,{...D,n:name})}return 'blocked'}
-  if(D.fps.includes(fp))return 'ok';
-  if(nolim||D.fps.length<LIMIT){D.fps.push(fp);D.d[fp]=desc;await fsPut(code,{...D,n:name});return 'ok'}
-  D.b=true;D.w=[fp];D.d[fp]=desc;await fsPut(code,{...D,n:name});
-  tgSend(`⛔ ${code} · ${name}\nКод ${LIMIT+1}-ші құрылғыдан ашылды — код БАРЛЫҚ құрылғыда бұғатталды!\n\nЖаңа құрылғы:\n${line}\n\nТіркелген құрылғылар:\n${D.fps.map(x=>'• '+x+' — '+(D.d[x]||'')).join('\n')}\n\nТөмендегі батырманы басып, қай құрылғыларға рұқсат беретініңізді таңдаңыз 👇`,code);
+async function devWatch(code,name,fp,line,desc,nolim){try{const fps=await fsGet(code);
+  if(fps.includes(BLK))return 'blocked';
+  if(fps.includes(fp))return 'ok';
+  if(nolim||fps.length<LIMIT){fps.push(fp);await fsPut(code,fps,name);return 'ok'}
+  const old=fps.slice();fps.push(BLK,fp);await fsPut(code,fps,name);
+  tgSend(`⛔ ${code} · ${name}\nКод ${LIMIT+1}-ші құрылғыдан ашылды — код БАРЛЫҚ құрылғыда бұғатталды!\n\nЖаңа құрылғы (із ${fp}):\n${line}\n\nБұрынғы құрылғылар: ${old.join(', ')}\n\n🔓 Рұқсат беру: төмендегі батырма → fps тізімінен «⛔» жолын өшіріңіз.\nЖаңа құрылғыға (${fp}) рұқсат бермесеңіз, оны да өшіріңіз — бірақ ол қайта кірсе, код тағы бұғатталады.`,code);
   return 'blocked';
 }catch(e){return 'ok'}}
 function blockedMsg(fp){er.innerHTML=`⛔ Бұл код уақытша бұғатталды:<br>рұқсат етілгеннен көп құрылғыдан кірілді.<br>Рұқсат алу үшін хабарласыңыз: <b>${PHONE}</b><br><small style="color:#888">Құрылғы ізі: ${fp||''}</small>`}
@@ -453,10 +450,9 @@ function enter(h,how){const c=C[h];const when=NOW();er.textContent='⏳ Текс
   const res=await Promise.race([devWatch(code,c.n,fp,'🕐 '+when+'\n📱 '+dev+' · '+screen.width+'×'+screen.height+' · із '+fp+'\n🌐 '+ip,dev+' · '+screen.width+'×'+screen.height+' · '+ip+' · '+when,!!c.x),new Promise(r=>setTimeout(()=>r('ok'),7000))]);
   gcEv('2class-kod-'+(c.k||'?')+' | '+when+' | '+(res==='blocked'?'БҰҒАТТАЛДЫ':res==='denied'?'ТЫЙЫМ':(how||'ашылды'))+' | із '+fp+' | '+dev+' · '+screen.width+'×'+screen.height+' · '+GPU+' | '+ip,c.n+(res==='blocked'?' – бұғатталған':res==='denied'?' – рұқсатсыз құрылғы':how==='кірді'?' – кодпен кірді':' – сайтты ашты')+' · құрылғы '+DEV);
   if(res==='blocked'){g.style.display='';blockedMsg(fp);return}
-  if(res==='denied'){g.style.display='';er.innerHTML=`⛔ Бұл құрылғыға рұқсат жоқ.<br>Рұқсат алу үшін хабарласыңыз: <b>${PHONE}</b><br><small style="color:#888">Құрылғы ізі: ${fp}</small>`;return}
   CUR={code,fp,x:!!c.x};er.textContent='';g.style.display='none';const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)})}
 /* ашық тұрған құрылғыларды да тексеру: код бұғатталса немесе құрылғы тізімнен алынса — жабылады */
-setInterval(async()=>{if(!CUR||CUR.x||g.style.display!=='none')return;try{const D=await fsGet(CUR.code);if(D.b||D.no.includes(CUR.fp)){g.style.display='';const l=document.getElementById('lic');l&&l.remove();blockedMsg(CUR.fp);CUR=null}}catch(e){}},45000);
+setInterval(async()=>{if(!CUR||CUR.x||g.style.display!=='none')return;try{const D=await fsGet(CUR.code);if(D.includes(BLK)){g.style.display='';const l=document.getElementById('lic');l&&l.remove();blockedMsg(CUR.fp);CUR=null}}catch(e){}},45000);
 function expired(){gcEv('mezgil-bitti','Мерзімі біткен кодпен кіру әрекеті');er.innerHTML=`Кодтың мерзімі бітті.<br>Ұзарту үшін хабарласыңыз: <b>${PHONE}</b>`;try{localStorage.removeItem('c2_ok')}catch(e){}}
 async function tryC(c){const h=await sha(c);const v=valid(h);if(v===1){try{localStorage.setItem('c2_ok',h)}catch(e){}return enter(h,'кірді')}if(v===-1)return expired();er.textContent='Код қате. Қайта тексеріңіз.'}
 document.getElementById('gf').onsubmit=e=>{e.preventDefault();if(inp.value.trim())tryC(inp.value)};
