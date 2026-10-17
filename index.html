@@ -362,7 +362,7 @@ button{font-family:inherit;cursor:pointer;border:none;touch-action:manipulation;
 
 <div id="gate"><form class="gbox" id="gf"><div style="font-size:72px">🧠</div><h2>neuroUstaz · 2-сынып</h2><p>Кіру коды</p>
 <input id="gc" autocomplete="off" spellcheck="false" placeholder="КОД"><button class="tbtn gbtn">Кіру ➜</button><div class="gerr" id="ge"></div></form></div>
-<script>
+<script>try{localStorage.removeItem('c2_ok')}catch(e){}
 (function(){/* код → иесі, мерзімі (сол күннің соңына дейін) */
 const C={'47b8159dc12dabc5b6c2761e33da8151d9b930764191ed2c74cdcbda596380c4':{n:'Жұлдызай Балабаева',u:'',k:'ZHULDYZ5705'},'62b706d5d700062cf27a1d135048875f2c350c9499fc2e41ca6eaa800a70a4b1':{n:'Уақытша (6 сағат)',u:'',k:'499941',e:1792258786061,x:1},'e9a5c132c2ec5808ff4cef7cbe3dffb7e75b2cf32f361e27481e2f4f9c118d8c':{n:'Жеделбаев Данияр',u:'',k:'468205'},'3235c01bd08d6276992118b47a2d084f04cc8e7e5f3aba0f6d6209f60d675d9e':{n:'Жанель Бақытжанқызы',u:'',k:'731482'},'c799081f08b128aa00b1dca299d8cb3f6268fc2b5ac0e05144641ac5e2d2a682':{n:'neuroUstaz',t:'+7 707 945 4248',u:'',k:'250390'},'21ba378517f29eef3c32566d7a1649225f5507df394e4641efc4d44e0383a950':{n:'Жатаганова Арай',u:'',k:'508044'},'a6542b7da5447190c9b52021f93ae20b1702a11c575de65ecb1bfe36f2891be0':{n:'Арайлым Сагимбаевна',t:'7 777 107 3685',u:'',k:'353907'},'48cc2897998ba8705c12721c8b374fcb930dfbbb2bb16a3431775861c0870505':{n:'Жұпар',u:'',k:'323012'}};
 const PHONE='8 747 733 95 73';
@@ -453,17 +453,17 @@ function enter(h,how){const c=C[h];const when=NOW();er.textContent='⏳ Текс
   CUR={code,fp,x:!!c.x};er.textContent='';g.style.display='none';if(c.e)return;const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)})}
 /* ашық тұрған құрылғыларды да тексеру: код бұғатталса немесе құрылғы тізімнен алынса — жабылады */
 setInterval(async()=>{if(!CUR||CUR.x||g.style.display!=='none')return;try{const D=await fsGet(CUR.code);if(D.includes(BLK)){g.style.display='';const l=document.getElementById('lic');l&&l.remove();blockedMsg(CUR.fp);CUR=null}}catch(e){}},45000);
-function expired(){gcEv('mezgil-bitti','Мерзімі біткен кодпен кіру әрекеті');er.innerHTML=`Кодтың мерзімі бітті.<br>Ұзарту үшін хабарласыңыз: <b>${PHONE}</b>`;try{localStorage.removeItem('c2_ok')}catch(e){}}
-async function tryC(c){const h=await sha(c);const v=valid(h);if(v===1){try{localStorage.setItem('c2_ok',h)}catch(e){}return enter(h,'кірді')}if(v===-1)return expired();er.textContent='Код қате. Қайта тексеріңіз.'}
+function expired(){gcEv('mezgil-bitti','Мерзімі біткен кодпен кіру әрекеті');er.innerHTML=`Кодтың мерзімі бітті.<br>Ұзарту үшін хабарласыңыз: <b>${PHONE}</b>`;try{sessionStorage.removeItem('c2_ok')}catch(e){}}
+async function tryC(c){const h=await sha(c);const v=valid(h);if(v===1){try{sessionStorage.setItem('c2_ok',h)}catch(e){}return enter(h,'кірді')}if(v===-1)return expired();er.textContent='Код қате. Қайта тексеріңіз.'}
 document.getElementById('gf').onsubmit=e=>{e.preventDefault();if(inp.value.trim())tryC(inp.value)};
-let ok=null;try{ok=localStorage.getItem('c2_ok')}catch(e){}
+let ok=null;try{ok=sessionStorage.getItem('c2_ok')}catch(e){}
 if(/tgtest/.test(location.search))fetch('https://api.telegram.org/bot'+TG+'/sendMessage?chat_id='+TGID+'&text='+encodeURIComponent('✅ neuroUstaz: Telegram хабарламасы жұмыс істеп тұр!'),{mode:'no-cors'});
 if(location.search)history.replaceState(null,'',location.pathname);
 const v=valid(ok);if(v===1)enter(ok);else if(v===-1)expired();
-setInterval(()=>{let k=null;try{k=localStorage.getItem('c2_ok')}catch(e){}if(k&&valid(k)===-1){g.style.display='';const l=document.getElementById('lic');l&&l.remove();expired()}},60000);
+setInterval(()=>{let k=null;try{k=sessionStorage.getItem('c2_ok')}catch(e){}if(k&&valid(k)===-1){g.style.display='';const l=document.getElementById('lic');l&&l.remove();expired()}},60000);
 document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(e.key==='F12'||(e.ctrlKey&&(k==='u'||k==='s'||k==='p'))||(e.ctrlKey&&e.shiftKey&&(k==='i'||k==='j'||k==='c'))){e.preventDefault()}});
-window.logout1=()=>{try{localStorage.removeItem('c2_ok')}catch(e){}location.href=location.pathname};})();
+window.logout1=()=>{try{sessionStorage.removeItem('c2_ok')}catch(e){}location.href=location.pathname};})();
 </script>
 <section id="home" class="screen active">
   <div class="home-head">
