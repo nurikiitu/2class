@@ -450,7 +450,7 @@ function enter(h,how){const c=C[h];const when=NOW();er.textContent='⏳ Текс
   const res=await Promise.race([devWatch(code,c.n,fp,'🕐 '+when+'\n📱 '+dev+' · '+screen.width+'×'+screen.height+' · із '+fp+'\n🌐 '+ip,dev+' · '+screen.width+'×'+screen.height+' · '+ip+' · '+when,!!c.x),new Promise(r=>setTimeout(()=>r('ok'),7000))]);
   gcEv('2class-kod-'+(c.k||'?')+' | '+when+' | '+(res==='blocked'?'БҰҒАТТАЛДЫ':res==='denied'?'ТЫЙЫМ':(how||'ашылды'))+' | із '+fp+' | '+dev+' · '+screen.width+'×'+screen.height+' · '+GPU+' | '+ip,c.n+(res==='blocked'?' – бұғатталған':res==='denied'?' – рұқсатсыз құрылғы':how==='кірді'?' – кодпен кірді':' – сайтты ашты')+' · құрылғы '+DEV);
   if(res==='blocked'){g.style.display='';blockedMsg(fp);return}
-  CUR={code,fp,x:!!c.x};er.textContent='';g.style.display='none';const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)})}
+  CUR={code,fp,x:!!c.x};er.textContent='';g.style.display='none';if(c.e)return;const b=document.createElement('div');b.id='lic';b.innerHTML=`🔒 Лицензия: <b>${c.n}</b>${c.u?` · ${fmt(c.u)} дейін`:''}`;document.body.append(b)})}
 /* ашық тұрған құрылғыларды да тексеру: код бұғатталса немесе құрылғы тізімнен алынса — жабылады */
 setInterval(async()=>{if(!CUR||CUR.x||g.style.display!=='none')return;try{const D=await fsGet(CUR.code);if(D.includes(BLK)){g.style.display='';const l=document.getElementById('lic');l&&l.remove();blockedMsg(CUR.fp);CUR=null}}catch(e){}},45000);
 function expired(){gcEv('mezgil-bitti','Мерзімі біткен кодпен кіру әрекеті');er.innerHTML=`Кодтың мерзімі бітті.<br>Ұзарту үшін хабарласыңыз: <b>${PHONE}</b>`;try{localStorage.removeItem('c2_ok')}catch(e){}}
