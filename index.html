@@ -1251,6 +1251,32 @@ const G3=[g3('mass','Масса: центнер мен килограмм','⚖�
  g3('tools','Өлшеуіш құралдар','📏','#f8bbd0','Немен өлшейміз?','⚖️ масса · 📏 ұзындық · 🧪 көлем · ⌚ уақыт'),
  g3('mprob','Шамалармен есептер','📝','#d1c4e9','кг, л, дм есептері','')];
 GAMES.push(...G3);
+/* ===== Бағандап (бұрышпен) бөлу: 84 : 4, 72 : 3 — қадаммен; тапсырмалар қоры сақталады ===== */
+const CDH='c2h_coldiv';
+function cdPool(){const P=[];for(let d=2;d<=9;d++)for(let q=11;q*d<=99;q++){const n=q*d,A=Math.floor(n/10);if(A<d)continue;P.push({n,d,q,easy:A%d===0})}return P}
+function cdMake(){let H=[];try{H=JSON.parse(localStorage.getItem(CDH)||'[]')}catch(e){}const P=cdPool();const fresh=P.filter(t=>!H.includes(t.n+':'+t.d));
+  const src=fresh.length>=T10?fresh:P;const E=shuffle(src.filter(t=>t.easy)),Hd=shuffle(src.filter(t=>!t.easy));const T=[...E.slice(0,5),...Hd.slice(0,5)];while(T.length<T10)T.push(shuffle(P)[0]);
+  H=H.concat(T.map(t=>t.n+':'+t.d)).slice(-2*T10*1.5|0);try{localStorage.setItem(CDH,JSON.stringify(H))}catch(e){}return T}
+const CDG={id:'coldiv',grade:2,title:'Бағандап бөлу',icon:'➗',bg:'#c5cae9',sub:'84 : 4 — қадаммен бөл',make:cdMake,
+ render(t,st,done){const A=Math.floor(t.n/10),B=t.n%10,q1=Math.floor(A/t.d),r1=A-q1*t.d,N2=r1*10+B,q2=N2/t.d;
+  st.append(el('div','task-title',`Бағандап бөл: ${t.n} : ${t.d}`));
+  const card=el('div','');card.style.cssText='background:#fff;border-radius:28px;padding:18px 40px;box-shadow:0 8px 0 rgba(0,0,0,.12);display:flex;gap:48px;align-items:flex-start;color:#1a2a5a';
+  const mono='font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:900';
+  const left=el('div','');left.style.cssText=mono+';font-size:72px;line-height:1.05;min-width:200px';left.innerHTML=`<div><span id="cdA" style="border-radius:10px;padding:0 4px">${A}</span><span id="cdB" style="border-radius:10px;padding:0 4px">${B}</span></div><div id="cdW" style="font-size:56px;color:#5c6bc0"></div>`;
+  const right=el('div','');right.style.cssText=mono+';font-size:72px;line-height:1.05';
+  const s1=el('div','box drop','');const s2=el('div','box drop','');[s1,s2].forEach(x=>{x.style.cssText='width:96px;height:100px;border:5px dashed #7986cb;border-radius:18px;display:inline-grid;place-items:center;color:#1a2a5a;background:#e8eaf6;font-size:64px'});
+  right.innerHTML=`<div style="border-left:7px solid #1a2a5a;padding-left:18px">${t.d}</div>`;const qr=el('div','');qr.style.cssText='border-left:7px solid #1a2a5a;border-top:7px solid #1a2a5a;padding:10px 0 0 18px;display:flex;gap:10px';qr.append(s1,s2);right.append(qr);
+  card.append(left,right);st.append(card);
+  const hint=el('div','howto','');st.append(hint);const tiles=el('div','tiles');st.append(tiles);
+  const W=left.querySelector('#cdW'),hA=left.querySelector('#cdA'),hB=left.querySelector('#cdB');
+  const step=(k)=>{tiles.innerHTML='';const ans=k===1?q1:q2;const slot=k===1?s1:s2;
+    hA.style.background=k===1?'#fff59d':'';hB.style.background=k===2?'#fff59d':'';slot.style.borderColor='#fdd835';
+    hint.innerHTML=k===1?`1-қадам: <b>${A}</b> ондықты <b>${t.d}</b>-ге бөл. ${A} : ${t.d} = ?`:`2-қадам: ${r1?`қалдық ${r1}, ${B}-ді түсіреміз → <b>${N2}</b>`:`<b>${B}</b> бірлікті`} ${t.d}-ге бөл. ${N2} : ${t.d} = ?`;
+    options(ans,4,0,9).forEach(v=>{const b=el('button','tile',v);const put=()=>{if(v!==ans)return wrong(b);slot.textContent=v;slot.style.borderStyle='solid';slot.style.borderColor='#43a047';slot.style.background='#e8f5e9';popIn(slot);b.classList.add('used');
+      if(k===1){const pd=N2<10?'padding-left:1ch':'';W.innerHTML=`<div>−${q1*t.d}</div><div style="border-top:5px solid #5c6bc0;width:110px;${pd}">${N2}</div>`;W.dataset.pd=pd;setTimeout(()=>step(2),500)}else{const pd=q2*t.d<10?'padding-left:1ch;':'';W.innerHTML+=`<div style="${pd}">−${q2*t.d}</div><div style="border-top:5px solid #5c6bc0;width:110px;padding-left:1ch">0</div>`;hA.style.background=hB.style.background='';hint.innerHTML=`✅ ${t.n} : ${t.d} = <b>${t.q}</b> &nbsp; Тексеру: ${t.q} · ${t.d} = ${t.n}`;setTimeout(()=>done(),900)}};
+      dragTile(b,put,put);tiles.append(b)})};
+  step(1)}};
+GAMES.push(CDG);
 /* ===== 2 оқушы жарысы (бөлек бөлім) ===== */
 const cap1=w=>w.charAt(0).toUpperCase()+w.slice(1);
 function coinSplit(p){const r=[];for(const v of COINS)while(p>=v){r.push(v);p-=v}return r.join(' + ')}
